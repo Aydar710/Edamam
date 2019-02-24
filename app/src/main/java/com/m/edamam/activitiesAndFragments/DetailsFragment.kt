@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 import com.m.edamam.R
 import com.m.edamam.Retrofit
@@ -15,8 +16,9 @@ import com.m.edamam.repositories.EdamamApi
 import com.m.edamam.repositories.RecipeRepository
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.fragment_details.*
+import kotlinx.android.synthetic.main.fragment_details.view.*
 
-private const val RECIPE_ID = "id"
+private const val RECIPE_ID = ""
 
 class DetailsFragment : Fragment() {
 
@@ -24,24 +26,16 @@ class DetailsFragment : Fragment() {
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_details, container, false)
         arguments?.let {
             id = it.getString(RECIPE_ID)
         }
         val recipe = recipeRepository.getRecipeById(id)
-        setRecipe(recipe)
-    }
-
-    private fun setRecipe(recipe: Single<Recipe>?) {
-        tvLabel.text = recipe?.subscribe{it -> it.label}.toString()
-        tvIngredients.text = recipe?.subscribe{it -> it.ingredientLines}.toString()
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details, container, false)
+        view.tvLabel.text = recipe?.subscribe{it -> it.label}.toString()
+        view.tvIngredients.text = recipe?.subscribe{it -> it.ingredientLines}.toString()
+        return view
     }
 
     companion object {
