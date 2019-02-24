@@ -3,6 +3,7 @@ package com.m.edamam.repositories
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.pojo.RecipesResponse
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class RecipeRepository(val api : EdamamApi) {
@@ -13,7 +14,7 @@ class RecipeRepository(val api : EdamamApi) {
     }
 
     fun getRecipeById(query: String?): Single<Recipe>? {
-        return api.getRecipeById(query).subscribeOn(Schedulers.io())
+        return api.getRecipeById(query).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
 }
