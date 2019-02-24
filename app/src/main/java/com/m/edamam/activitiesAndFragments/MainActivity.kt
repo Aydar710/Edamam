@@ -11,6 +11,7 @@ import com.m.edamam.RecipeListAdapter
 import com.m.edamam.Retrofit
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.repositories.RecipeRepository
+import com.m.edamam.views.DetailsFragmentView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
 
