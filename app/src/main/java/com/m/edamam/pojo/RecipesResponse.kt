@@ -22,5 +22,4 @@ data class RecipesResponse(
         @SerializedName("hits")
         @Expose
         var hits: List<Hit>? = null
-
 )
