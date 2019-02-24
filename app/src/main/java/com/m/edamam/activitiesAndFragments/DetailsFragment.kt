@@ -13,6 +13,7 @@ import com.m.edamam.presenters.DetailsFragmentPresenter
 import com.m.edamam.repositories.EdamamApi
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.DetailsFragmentView
+import com.squareup.picasso.Picasso
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.fragment_details.view.*
 
@@ -20,7 +21,7 @@ private const val RECIPE_ID = ""
 
 class DetailsFragment : Fragment(), DetailsFragmentView {
 
-    private var id: String? = null
+    private lateinit var id: String
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
     lateinit var presenter: DetailsFragmentPresenter
@@ -29,13 +30,16 @@ class DetailsFragment : Fragment(), DetailsFragmentView {
         presenter.getRecipeDetails(id)
     }
 
-    override fun showRecipeDetails(recipe: Single<Recipe>?) {
+    override fun showRecipeDetails(recipe: Recipe) {
         setRecipe(recipe)
     }
 
-    private fun setRecipe(recipe: Single<Recipe>?) {
-        view?.tvLabel?.text = recipe?.subscribe{it -> it.label}.toString()
-        view?.tvIngredients?.text = recipe?.subscribe{it -> it.ingredientLines}.toString()
+    private fun setRecipe(recipe: Recipe) {
+        view?.tvLabel?.text = recipe.label
+        view?.tvIngredients?.text = recipe.ingredientLines.toString()
+        Picasso.get()
+                .load(recipe.image)
+                .into(view?.img_recipe_details)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -45,9 +49,7 @@ class DetailsFragment : Fragment(), DetailsFragmentView {
         arguments?.let {
             id = it.getString(RECIPE_ID)
         }
-        view.button2.setOnClickListener{
-            loadRecipeDetails()
-        }
+
         return view
     }
 

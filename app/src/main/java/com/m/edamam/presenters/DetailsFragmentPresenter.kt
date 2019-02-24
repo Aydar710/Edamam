@@ -7,8 +7,16 @@ import com.m.edamam.views.DetailsFragmentView
 
 class DetailsFragmentPresenter(val view: DetailsFragmentView) {
     @SuppressLint("CheckResult")
-    fun getRecipeDetails(id: String?) {
-        view.showRecipeDetails(repository.getRecipeById(id))
+    fun getRecipeDetails(id: String) {
+        repository.getRecipeById(id)
+                .subscribe(
+                        {
+                            it?.let { it1 -> view.showRecipeDetails(it1) }
+                        },
+                        {
+                            it.printStackTrace()
+                        }
+                )
     }
 
     var repository: RecipeRepository

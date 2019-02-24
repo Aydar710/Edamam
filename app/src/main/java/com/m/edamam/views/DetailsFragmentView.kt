@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface DetailsFragmentView {
     fun loadRecipeDetails()
-    fun showRecipeDetails(recipe: Single<Recipe>?)
+    fun showRecipeDetails(recipe: Recipe)
 }
