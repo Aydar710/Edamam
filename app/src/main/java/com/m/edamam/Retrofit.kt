@@ -30,6 +30,7 @@ class Retrofit private constructor() {
             val url = request.url().newBuilder()
                     .addQueryParameter("app_id", APP_ID)
                     .addQueryParameter("app_key", APP_KEY)
+                    .addQueryParameter("to", "2")
                     .build()
             request = request.newBuilder().url(url).build()
             chain.proceed(request)
