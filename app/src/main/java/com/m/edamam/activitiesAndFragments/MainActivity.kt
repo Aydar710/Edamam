@@ -54,7 +54,8 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
     }
 
     override fun onClick(recipe: Recipe) {
-        Log.i("Tag", "onItemCLicked")
+        val recipeId = getRecipeId(recipe)
+        doRecipeDetailsFragment(recipeId)
     }
 
     fun doRecipeListTransaction(){
@@ -66,7 +67,20 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
                 .commit()
     }
 
+    fun doRecipeDetailsFragment(recipeId : String){
+        val fragmentManager = supportFragmentManager
+        val fragment = DetailsFragment.newInstance(recipeId)
+        fragmentManager.beginTransaction()
+                .replace(R.id.frame_container, fragment)
+                .commit()
+    }
+
     interface OnQueryTextListener {
         fun onQueryTextChanged(query: String)
     }
+
+    fun getRecipeId(recipe : Recipe): String {
+        return "1a39cf9cd8181d38ac551e5a4879ea66"
+    }
+
 }

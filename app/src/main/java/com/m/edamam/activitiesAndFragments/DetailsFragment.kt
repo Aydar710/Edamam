@@ -14,7 +14,6 @@ import com.m.edamam.repositories.EdamamApi
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.DetailsFragmentView
 import com.squareup.picasso.Picasso
-import io.reactivex.Single
 import kotlinx.android.synthetic.main.fragment_details.view.*
 
 private const val RECIPE_ID = ""
