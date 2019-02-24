@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.card_recipe.view.*
 
 class RecipeListAdapter : ListAdapter<Hit, RecipeListAdapter.RecipeHolder>(HitDiffCallback()) {
 
+    var listItemClickListener: ListItemClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): RecipeHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_recipe, parent, false)
         return RecipeHolder(view)
@@ -37,10 +39,21 @@ class RecipeListAdapter : ListAdapter<Hit, RecipeListAdapter.RecipeHolder>(HitDi
             txtCalories.text = recipe?.calories.toString()
             txtTime.text = recipe?.totalTime.toString()
 
+            containerView.setOnClickListener {
+                recipe?.let { itRecipe ->
+                    listItemClickListener?.onClick(itRecipe)
+                }
+            }
+
             Picasso.get()
                     .load(recipe?.image)
                     .into(imgRecipe)
+
         }
 
+    }
+
+    interface ListItemClickListener {
+        fun onClick(recipe: Recipe)
     }
 }

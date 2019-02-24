@@ -7,12 +7,14 @@ import android.util.Log
 import android.view.Menu
 import com.facebook.stetho.Stetho
 import com.m.edamam.R
+import com.m.edamam.RecipeListAdapter
 import com.m.edamam.Retrofit
+import com.m.edamam.pojo.Recipe
 import com.m.edamam.repositories.RecipeRepository
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListener {
 
     lateinit var listener: OnQueryTextListener
 
@@ -23,12 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         Stetho.initializeWithDefaults(this)
 
-        val fragmentManager = supportFragmentManager
-        val fragment = RecipeListFragment()
-        listener = fragment
-        fragmentManager.beginTransaction()
-                .replace(R.id.frame_container, fragment)
-                .commit()
+        doRecipeListTransaction()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -55,6 +52,18 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onClick(recipe: Recipe) {
+        Log.i("Tag", "onItemCLicked")
+    }
+
+    fun doRecipeListTransaction(){
+        val fragmentManager = supportFragmentManager
+        val fragment = RecipeListFragment()
+        listener = fragment
+        fragmentManager.beginTransaction()
+                .replace(R.id.frame_container, fragment)
+                .commit()
+    }
 
     interface OnQueryTextListener {
         fun onQueryTextChanged(query: String)

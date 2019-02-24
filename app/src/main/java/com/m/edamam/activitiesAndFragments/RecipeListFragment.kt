@@ -20,6 +20,7 @@ class RecipeListFragment : Fragment(), RecipeListFragmentView, MainActivity.OnQu
         presenter = RecipeListFragmentPresenter(this)
         var rv = view.recycler_recipes
         rv.adapter = presenter.adapter
+        presenter.adapter.listItemClickListener = activity as MainActivity
         return view
     }
 
