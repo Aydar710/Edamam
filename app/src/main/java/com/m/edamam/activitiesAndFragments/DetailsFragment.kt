@@ -16,7 +16,6 @@ import com.m.edamam.views.DetailsFragmentView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.view.*
 
-
 class DetailsFragment : Fragment(), DetailsFragmentView {
 
     private val ARG_RECIPE_ID = "arg_recipe_id"

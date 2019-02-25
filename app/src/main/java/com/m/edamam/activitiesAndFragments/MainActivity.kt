@@ -7,6 +7,8 @@ import android.view.Menu
 import com.facebook.stetho.Stetho
 import com.m.edamam.R
 import com.m.edamam.RecipeListAdapter
+import com.m.edamam.constants.DEBOUNCE_TIMEOUT
+import com.m.edamam.constants.TEMPORARY_RECIPE_ID
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.utils.observableFromSearchView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -49,7 +51,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         })
 
         observableFromSearchView(searchView)
-                .debounce(700, TimeUnit.MILLISECONDS)
+                .debounce(DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
                 .distinctUntilChanged()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
@@ -60,7 +62,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
     }
 
     override fun onClick(recipe: Recipe) {
-        val recipeId = getRecipeId(recipe)
+        val recipeId = TEMPORARY_RECIPE_ID
         doRecipeDetailsFragment(recipeId)
     }
 

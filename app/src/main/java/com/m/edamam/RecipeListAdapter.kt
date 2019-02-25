@@ -26,7 +26,8 @@ class RecipeListAdapter : ListAdapter<Hit, RecipeListAdapter.RecipeHolder>(HitDi
         }
     }
 
-    inner class RecipeHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class RecipeHolder(override val containerView: View)
+        : RecyclerView.ViewHolder(containerView), LayoutContainer {
         var imgRecipe = containerView.img_recipe
         var txtLabel = containerView.txt_label
         var txtCalories = containerView.txt_calories
