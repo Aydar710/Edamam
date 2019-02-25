@@ -85,5 +85,6 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
 
     interface OnQueryTextListener {
         fun onQueryTextChanged(query: String)
+        fun takDelatNelzya()
     }
 }
