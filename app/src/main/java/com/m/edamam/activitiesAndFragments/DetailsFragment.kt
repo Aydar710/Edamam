@@ -20,10 +20,10 @@ import kotlinx.android.synthetic.main.fragment_details.view.*
 class DetailsFragment : Fragment(), DetailsFragmentView {
 
     private val ARG_RECIPE_ID = "arg_recipe_id"
-    private lateinit var id: String
+    private  var id: String? = null
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
-    lateinit var presenter: DetailsFragmentPresenter
+    var presenter: DetailsFragmentPresenter? = null
 
     companion object {
         @JvmStatic
@@ -51,7 +51,7 @@ class DetailsFragment : Fragment(), DetailsFragmentView {
     }
 
     override fun loadRecipeDetails() {
-        presenter.getRecipeDetails(id)
+        id?.let { presenter?.getRecipeDetails(it) }
     }
 
     override fun showRecipeDetails(recipe: Recipe) {

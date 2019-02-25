@@ -2,7 +2,6 @@ package com.m.edamam.repositories
 
 import com.m.edamam.pojo.Hit
 import com.m.edamam.pojo.Recipe
-import com.m.edamam.pojo.RecipesResponse
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

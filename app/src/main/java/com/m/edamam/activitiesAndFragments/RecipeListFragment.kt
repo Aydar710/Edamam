@@ -9,8 +9,6 @@ import com.m.edamam.R
 import com.m.edamam.pojo.Hit
 import com.m.edamam.presenters.RecipeListFragmentPresenter
 import com.m.edamam.views.RecipeListFragmentView
-import kotlinx.android.synthetic.main.fragment_recipe_list.*
-import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 
 class RecipeListFragment : Fragment(), RecipeListFragmentView, MainActivity.OnQueryTextListener {
     var presenter: RecipeListFragmentPresenter? = null

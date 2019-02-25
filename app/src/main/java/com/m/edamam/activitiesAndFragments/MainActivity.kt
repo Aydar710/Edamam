@@ -3,24 +3,19 @@ package com.m.edamam.activitiesAndFragments
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.SearchView
-import android.util.Log
 import android.view.Menu
 import com.facebook.stetho.Stetho
 import com.m.edamam.R
 import com.m.edamam.RecipeListAdapter
-import com.m.edamam.Retrofit
 import com.m.edamam.pojo.Recipe
-import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.utils.observableFromSearchView
-import com.m.edamam.views.DetailsFragmentView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_recipe_list.*
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListener {
 
-    lateinit var listener: OnQueryTextListener
+    var listener: OnQueryTextListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +37,13 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (query.isEmpty()) return true
-                listener.onQueryTextChanged(query)
+                listener?.onQueryTextChanged(query)
                 return true
             }
 
             override fun onQueryTextChange(query: String): Boolean {
                 if (query.isEmpty()) return true
-                listener.onQueryTextChanged(query)
+                listener?.onQueryTextChanged(query)
                 return true
             }
         })
