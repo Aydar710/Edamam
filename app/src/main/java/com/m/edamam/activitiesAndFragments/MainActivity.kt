@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         val searchView: SearchView = searchViewItem?.actionView as SearchView
         searchView.queryHint = "Search recipe"
 
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (query.isEmpty()) return true
