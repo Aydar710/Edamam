@@ -15,7 +15,7 @@ references:
          ~/.gradle
 
   workspace: &workspace
-    ~ .
+    ~/work
 
   attach_release_workspace: &attach_release_workspace
     attach_workspace:
@@ -48,9 +48,6 @@ jobs:
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
-#          - run:
-#                    name: Create dir
-#                    command: mkdir app/build
       - *save_cache
       - *persist_release_workspace
 
