@@ -15,7 +15,7 @@ references:
          ~/.gradle
 
   workspace: &workspace
-    ~/
+    ~ .
 
   attach_release_workspace: &attach_release_workspace
     attach_workspace:
@@ -25,7 +25,7 @@ references:
     persist_to_workspace:
       root: *workspace
       paths:
-        - app/build
+        - .
 
   android_config: &android_config
     working_directory: *workspace
