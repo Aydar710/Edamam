@@ -2,6 +2,7 @@ package com.m.edamam.activitiesAndFragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.*
 import com.m.edamam.R
@@ -18,6 +19,10 @@ class RecipeListFragment : Fragment(), RecipeListFragmentView, MainActivity.OnQu
         val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
 
         presenter = RecipeListFragmentPresenter(this)
+        (activity as? AppCompatActivity)?.run {
+            //setSupportActionBar()
+        }
+
         var rv = view.recycler_recipes
         rv.adapter = presenter.adapter
         presenter.adapter.listItemClickListener = activity as MainActivity

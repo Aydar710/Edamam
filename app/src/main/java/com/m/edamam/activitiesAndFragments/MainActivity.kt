@@ -11,9 +11,12 @@ import com.m.edamam.RecipeListAdapter
 import com.m.edamam.Retrofit
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.repositories.RecipeRepository
+import com.m.edamam.utils.observableFromSearchView
 import com.m.edamam.views.DetailsFragmentView
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListener {
 
@@ -36,6 +39,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         val searchView: SearchView = searchViewItem?.actionView as SearchView
         searchView.queryHint = "Search recipe"
 
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (query.isEmpty()) return true
@@ -50,6 +54,14 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
             }
         })
 
+        observableFromSearchView(searchView)
+                .debounce(700, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                   // presenter.onSearch(it)
+                }
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -58,7 +70,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         doRecipeDetailsFragment(recipeId)
     }
 
-    fun doRecipeListTransaction(){
+    fun doRecipeListTransaction() {
         val fragmentManager = supportFragmentManager
         val fragment = RecipeListFragment()
         listener = fragment
@@ -67,7 +79,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
                 .commit()
     }
 
-    fun doRecipeDetailsFragment(recipeId : String){
+    fun doRecipeDetailsFragment(recipeId: String) {
         val fragmentManager = supportFragmentManager
         val fragment = DetailsFragment.newInstance(recipeId)
         fragmentManager.beginTransaction()
@@ -75,7 +87,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
                 .commit()
     }
 
-    fun getRecipeId(recipe : Recipe): String {
+    fun getRecipeId(recipe: Recipe): String {
         return "1a39cf9cd8181d38ac551e5a4879ea66"
     }
 
