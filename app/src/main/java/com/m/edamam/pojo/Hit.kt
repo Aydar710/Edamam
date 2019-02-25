@@ -13,5 +13,4 @@ data class Hit (
     @SerializedName("bought")
     @Expose
     var bought: Boolean? = null
-
 )

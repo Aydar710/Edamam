@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         val fragment = RecipeListFragment()
         listener = fragment
         fragmentManager.beginTransaction()
-                .replace(R.id.frame_container, fragment)
+                .replace(R.id.container_main, fragment)
                 .commit()
     }
 
@@ -71,16 +71,15 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         val fragmentManager = supportFragmentManager
         val fragment = DetailsFragment.newInstance(recipeId)
         fragmentManager.beginTransaction()
-                .replace(R.id.frame_container, fragment)
+                .replace(R.id.container_main, fragment)
                 .commit()
-    }
-
-    interface OnQueryTextListener {
-        fun onQueryTextChanged(query: String)
     }
 
     fun getRecipeId(recipe : Recipe): String {
         return "1a39cf9cd8181d38ac551e5a4879ea66"
     }
 
+    interface OnQueryTextListener {
+        fun onQueryTextChanged(query: String)
+    }
 }

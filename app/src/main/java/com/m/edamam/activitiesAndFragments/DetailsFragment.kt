@@ -16,14 +16,39 @@ import com.m.edamam.views.DetailsFragmentView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.view.*
 
-private const val RECIPE_ID = ""
 
 class DetailsFragment : Fragment(), DetailsFragmentView {
 
+    private val ARG_RECIPE_ID = "arg_recipe_id"
     private lateinit var id: String
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
     lateinit var presenter: DetailsFragmentPresenter
+
+    companion object {
+        @JvmStatic
+        fun newInstance(id: String) =
+                DetailsFragment().apply {
+                    arguments = Bundle().apply {
+                        putString(ARG_RECIPE_ID, id)
+                    }
+                }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        presenter = DetailsFragmentPresenter(this)
+        val view = inflater.inflate(R.layout.fragment_details, container, false)
+        arguments?.let {
+            id = it.getString(ARG_RECIPE_ID)
+        }
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        loadRecipeDetails()
+    }
 
     override fun loadRecipeDetails() {
         presenter.getRecipeDetails(id)
@@ -34,44 +59,11 @@ class DetailsFragment : Fragment(), DetailsFragmentView {
     }
 
     private fun setRecipe(recipe: Recipe) {
-        view?.tvLabel?.text = recipe.label
-        view?.tvIngredients?.text = recipe.ingredientLines.toString()
+        view?.txt_label?.text = recipe.label
+        view?.txt_ingredients?.text = recipe.ingredientLines.toString()
         Picasso.get()
                 .load(recipe.image)
                 .into(view?.img_recipe_details)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        presenter = DetailsFragmentPresenter(this)
-        val view = inflater.inflate(R.layout.fragment_details, container, false)
-        arguments?.let {
-            id = it.getString(RECIPE_ID)
-        }
-
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        loadRecipeDetails()
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param id of recipe
-         * @return A new instance of fragment DetailsFragment.
-         */
-
-        @JvmStatic
-        fun newInstance(id: String) =
-                DetailsFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(RECIPE_ID, id)
-                    }
-                }
-    }
 }

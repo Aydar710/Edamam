@@ -21,7 +21,6 @@ class DetailsFragmentPresenter(val view: DetailsFragmentView) {
 
     var repository: RecipeRepository
     init {
-        val retrofit = Retrofit.instance
-        repository = RecipeRepository(retrofit.getEdamamService())
+        repository = RecipeRepository(Retrofit.instance.getEdamamService())
     }
 }

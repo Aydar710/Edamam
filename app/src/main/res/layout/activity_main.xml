@@ -16,8 +16,7 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
     <FrameLayout
-        android:id="@+id/frame_container"
+        android:id="@+id/container_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </FrameLayout>
+        android:layout_height="wrap_content"></FrameLayout>
 </LinearLayout>

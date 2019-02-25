@@ -21,12 +21,10 @@ class RecipeListAdapter : ListAdapter<Hit, RecipeListAdapter.RecipeHolder>(HitDi
     }
 
     override fun onBindViewHolder(holder: RecipeHolder, position: Int) {
-        val hit = getItem(position)
-        hit.recipe?.let {
+        getItem(position).recipe?.let {
             holder.bind(it)
         }
     }
-
 
     inner class RecipeHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         var imgRecipe = containerView.img_recipe
@@ -34,19 +32,19 @@ class RecipeListAdapter : ListAdapter<Hit, RecipeListAdapter.RecipeHolder>(HitDi
         var txtCalories = containerView.txt_calories
         var txtTime = containerView.txt_time
 
-        fun bind(recipe: Recipe?) {
-            txtLabel.text = recipe?.label
-            txtCalories.text = recipe?.calories.toString()
-            txtTime.text = recipe?.totalTime.toString()
+        fun bind(recipe: Recipe) {
+            txtLabel.text = recipe.label
+            txtCalories.text = recipe.calories.toString()
+            txtTime.text = recipe.totalTime.toString()
 
             containerView.setOnClickListener {
-                recipe?.let { itRecipe ->
+                recipe.let { itRecipe ->
                     listItemClickListener?.onClick(itRecipe)
                 }
             }
 
             Picasso.get()
-                    .load(recipe?.image)
+                    .load(recipe.image)
                     .into(imgRecipe)
 
         }

@@ -9,11 +9,11 @@ import retrofit2.http.Query
 interface EdamamApi {
     @GET("search")
     fun getRecipesByName(
-            @Query("q") query: String)
-            : Single<RecipesResponse>
+            @Query("q") query: String
+    ): Single<RecipesResponse>
 
     @GET("search")
     fun getRecipeById(
-            @Query("q") query: String)
-            : Single<RecipesResponse>
+            @Query("q") query: String
+    ): Single<RecipesResponse>
 }

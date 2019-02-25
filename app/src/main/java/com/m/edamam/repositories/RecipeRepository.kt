@@ -7,15 +7,15 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class RecipeRepository(val api : EdamamApi) {
+class RecipeRepository(val api: EdamamApi) {
 
-    fun getRecipesByName(query : String): Single<List<Hit>?> {
-            return api.getRecipesByName(query)
+    fun getRecipesByName(query: String): Single<List<Hit>> =
+            api.getRecipesByName(query)
+                    .subscribeOn(Schedulers.io())
                     .map {
                         it.hits
                     }
-                    .subscribeOn(Schedulers.io())
-    }
+
 
     fun getRecipeById(query: String): Single<Recipe?> {
         return api

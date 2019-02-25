@@ -1,8 +1,7 @@
 package com.m.edamam
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.m.edamam.constants.APP_ID
-import com.m.edamam.constants.APP_KEY
+import com.m.edamam.constants.*
 import com.m.edamam.repositories.EdamamApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -28,8 +27,8 @@ class Retrofit private constructor() {
         okHttpClient.interceptors().add(Interceptor { chain ->
             var request = chain.request()
             val url = request.url().newBuilder()
-                    .addQueryParameter("app_id", APP_ID)
-                    .addQueryParameter("app_key", APP_KEY)
+                    .addQueryParameter(QUERY_PARAM_APP_ID, APP_ID)
+                    .addQueryParameter(QUERY_PARAM_APP_KEY, APP_KEY)
                     .build()
             request = request.newBuilder().url(url).build()
             chain.proceed(request)
@@ -38,7 +37,7 @@ class Retrofit private constructor() {
         val retrofit = retrofit2.Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://api.edamam.com/")
+                .baseUrl(RETROFIT_BASE_URL)
                 .client(okHttpClient.build())
                 .build()
 
