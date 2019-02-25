@@ -11,19 +11,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 class Retrofit private constructor() {
 
     companion object {
-        val instance : Retrofit by lazy {
+        val instance: Retrofit by lazy {
             Holder.INSTANCE
         }
     }
 
-    private object Holder{
+    private object Holder {
         val INSTANCE = Retrofit()
     }
 
-    fun getEdamamService() : EdamamApi{
+    fun getEdamamService(): EdamamApi {
         val okHttpClient = OkHttpClient.Builder()
                 .addNetworkInterceptor(StethoInterceptor())
-
         okHttpClient.interceptors().add(Interceptor { chain ->
             var request = chain.request()
             val url = request.url().newBuilder()
@@ -33,15 +32,13 @@ class Retrofit private constructor() {
             request = request.newBuilder().url(url).build()
             chain.proceed(request)
         })
-
         val retrofit = retrofit2.Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(RETROFIT_BASE_URL)
                 .client(okHttpClient.build())
                 .build()
-
-        var edamamService : EdamamApi = retrofit.create(EdamamApi::class.java)
+        val edamamService: EdamamApi = retrofit.create(EdamamApi::class.java)
         return edamamService
     }
 }
