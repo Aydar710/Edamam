@@ -48,9 +48,9 @@ jobs:
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
-          - run:
-                    name: Create dir
-                    command: mkdir app/build
+#          - run:
+#                    name: Create dir
+#                    command: mkdir app/build
       - *save_cache
       - *persist_release_workspace
 
