@@ -9,12 +9,11 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class RecipeListFragmentPresenter(val view: RecipeListFragmentView) {
-    lateinit var repository: RecipeRepository
-    lateinit var adapter: RecipeListAdapter
+    var repository: RecipeRepository
+    var adapter: RecipeListAdapter
 
     init {
-        val retrofit = Retrofit.instance
-        repository = RecipeRepository(retrofit.getEdamamService())
+        repository = RecipeRepository(Retrofit.instance.getEdamamService())
         adapter = RecipeListAdapter()
     }
 
