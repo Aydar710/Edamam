@@ -23,6 +23,21 @@ class Retrofit private constructor() {
     fun getEdamamService(): EdamamApi {
         val okHttpClient = OkHttpClient.Builder()
                 .addNetworkInterceptor(StethoInterceptor())
+
+        addInterceptors(okHttpClient)
+
+        val retrofit = retrofit2.Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(RETROFIT_BASE_URL)
+                .client(okHttpClient.build())
+                .build()
+
+        val edamamService: EdamamApi = retrofit.create(EdamamApi::class.java)
+        return edamamService
+    }
+
+    fun addInterceptors(okHttpClient: OkHttpClient.Builder) {
         okHttpClient.interceptors().add(Interceptor { chain ->
             var request = chain.request()
             val url = request.url().newBuilder()
@@ -32,13 +47,5 @@ class Retrofit private constructor() {
             request = request.newBuilder().url(url).build()
             chain.proceed(request)
         })
-        val retrofit = retrofit2.Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(RETROFIT_BASE_URL)
-                .client(okHttpClient.build())
-                .build()
-        val edamamService: EdamamApi = retrofit.create(EdamamApi::class.java)
-        return edamamService
     }
 }

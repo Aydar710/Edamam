@@ -83,10 +83,6 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
                 .commit()
     }
 
-    fun getRecipeId(recipe: Recipe): String {
-        return "1a39cf9cd8181d38ac551e5a4879ea66"
-    }
-
     interface OnQueryTextListener {
         fun onQueryTextChanged(query: String)
     }
