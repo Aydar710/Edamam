@@ -8,7 +8,7 @@ import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.DetailsFragmentView
 
 @InjectViewState
-class DetailsFragmentPresenter() : MvpPresenter<DetailsFragmentView>() {
+class DetailsFragmentPresenter : MvpPresenter<DetailsFragmentView>() {
     var repository: RecipeRepository
 
     init {
