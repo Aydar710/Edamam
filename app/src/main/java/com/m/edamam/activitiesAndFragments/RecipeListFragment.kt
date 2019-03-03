@@ -3,14 +3,17 @@ package com.m.edamam.activitiesAndFragments
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.view.*
-import com.m.edamam.R
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.m.edamam.pojo.Hit
 import com.m.edamam.presenters.RecipeListFragmentPresenter
 import com.m.edamam.views.RecipeListFragmentView
 
+
 class RecipeListFragment : Fragment(), RecipeListFragmentView, MainActivity.OnQueryTextListener {
+
+
     var presenter: RecipeListFragmentPresenter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -38,5 +41,9 @@ class RecipeListFragment : Fragment(), RecipeListFragmentView, MainActivity.OnQu
     override fun onQueryTextChanged(query: String) {
         Log.i("Tag", query)
         updateAdapterByQueryResult(query)
+    }
+
+    override fun takDelatNelzya() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
