@@ -1,5 +1,7 @@
 package com.m.edamam.presenters
 
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import com.m.edamam.RecipeListAdapter
 import com.m.edamam.Retrofit
 import com.m.edamam.pojo.Hit
@@ -8,7 +10,8 @@ import com.m.edamam.views.RecipeListFragmentView
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class RecipeListFragmentPresenter(val view: RecipeListFragmentView) {
+@InjectViewState
+class RecipeListFragmentPresenter : MvpPresenter<RecipeListFragmentView>() {
     lateinit var repository: RecipeRepository
     lateinit var adapter: RecipeListAdapter
 
@@ -25,7 +28,7 @@ class RecipeListFragmentPresenter(val view: RecipeListFragmentView) {
                 .subscribe(
                         {
                             it?.let { list ->
-                                view.submitListIntoAdapter(list)
+                                viewState.submitListIntoAdapter(list)
                             }
                         },
                         {

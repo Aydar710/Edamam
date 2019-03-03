@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.m.edamam.R
 import com.m.edamam.Retrofit
@@ -17,12 +19,14 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.view.*
 
 
-class DetailsFragment : Fragment(), DetailsFragmentView {
+class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
 
     private val ARG_RECIPE_ID = "arg_recipe_id"
     private lateinit var id: String
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
+
+    @InjectPresenter
     lateinit var presenter: DetailsFragmentPresenter
 
     companion object {
@@ -37,7 +41,6 @@ class DetailsFragment : Fragment(), DetailsFragmentView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        presenter = DetailsFragmentPresenter(this)
         val view = inflater.inflate(R.layout.fragment_details, container, false)
         arguments?.let {
             id = it.getString(ARG_RECIPE_ID)
