@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.m.edamam.MyApplication
-import com.m.edamam.RecipeListAdapter
 import com.m.edamam.Retrofit
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.repositories.RecipeRepositoryDb

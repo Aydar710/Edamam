@@ -3,9 +3,6 @@ package com.m.edamam.activitiesAndFragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.SharedMemory
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -17,7 +14,6 @@ import com.m.edamam.constants.SPREF_PAG_SIZE
 import com.m.edamam.pojo.Hit
 import com.m.edamam.presenters.RecipeListFragmentPresenter
 import com.m.edamam.views.RecipeListFragmentView
-import kotlinx.android.synthetic.main.fragment_recipe_list.*
 import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 
 

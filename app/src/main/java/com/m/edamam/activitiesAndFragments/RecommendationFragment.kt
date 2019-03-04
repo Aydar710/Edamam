@@ -11,7 +11,6 @@ import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.m.edamam.R
 import com.m.edamam.Retrofit
-import com.m.edamam.constants.ARG_RECIPE_ID
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.presenters.RecommendationFragmentPresenter
 import com.m.edamam.repositories.EdamamApi
@@ -19,7 +18,6 @@ import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecommendationFragmentView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_recommendation.view.*
-import android.support.v4.content.ContextCompat.getSystemService
 
 
 class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentView {
@@ -86,7 +84,7 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
 
     fun isOnline(): Boolean {
         val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-        val netInfo = cm!!.activeNetworkInfo
+        val netInfo = cm?.activeNetworkInfo
         return netInfo != null && netInfo.isConnectedOrConnecting
     }
 

@@ -9,12 +9,8 @@ import com.facebook.stetho.Stetho
 import com.m.edamam.R
 import com.m.edamam.RecipeListAdapter
 import com.m.edamam.pojo.Recipe
-import com.m.edamam.repositories.RecipeRepository
-import com.m.edamam.views.DetailsFragmentView
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.SharedPreferences
-import android.widget.Toast
-import android.R.id.edit
 import android.content.Context
 import com.m.edamam.constants.SPREF_PAG_SIZE
 
