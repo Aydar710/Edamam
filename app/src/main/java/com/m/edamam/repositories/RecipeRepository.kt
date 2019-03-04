@@ -27,9 +27,9 @@ class RecipeRepository(val api: EdamamApi) {
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getRecipesByName(query: String, currentPage: Int): Single<List<Hit>?> {
+    fun getRecipesByName(query: String, currentPage: Int, pagSize : Int): Single<List<Hit>?> {
         return api.getRecipesByName(query,
-                from = "${10 * currentPage}", to = "${10 * (currentPage + 1)}")
+                from = "${pagSize * currentPage}", to = "${pagSize * (currentPage + 1)}")
                 .map {
                     it.hits
                 }

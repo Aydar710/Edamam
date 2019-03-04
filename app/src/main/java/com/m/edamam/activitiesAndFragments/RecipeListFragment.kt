@@ -1,6 +1,9 @@
 package com.m.edamam.activitiesAndFragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.SharedMemory
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -10,6 +13,7 @@ import android.view.*
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.m.edamam.R
+import com.m.edamam.constants.SPREF_PAG_SIZE
 import com.m.edamam.pojo.Hit
 import com.m.edamam.presenters.RecipeListFragmentPresenter
 import com.m.edamam.views.RecipeListFragmentView
@@ -23,6 +27,7 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
     lateinit var presenter: RecipeListFragmentPresenter
     lateinit var manager: LinearLayoutManager
     lateinit var queryText : String
+    lateinit var sPref : SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
@@ -49,7 +54,7 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
                             && firstVisibleItemPosition >= 0
                             && totalItemCount >= 10)
 
-                        presenter.loadNextElements(++currentPage, queryText)
+                        presenter.loadNextElements(++currentPage, queryText, getPaginationSizeFromPreferences())
                 }
             }
         })
@@ -75,5 +80,12 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
         Log.i("Tag", query)
         queryText = query
         updateAdapterByQueryResult(query)
+    }
+
+    fun getPaginationSizeFromPreferences(): Int {
+        activity?.let {
+            sPref = it.getPreferences(Context.MODE_PRIVATE)
+        }
+        return sPref.getInt(SPREF_PAG_SIZE, 10)
     }
 }

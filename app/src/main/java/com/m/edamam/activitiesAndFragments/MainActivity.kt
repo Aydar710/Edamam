@@ -5,19 +5,24 @@ import android.os.Bundle
 import android.support.v7.widget.SearchView
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import com.facebook.stetho.Stetho
 import com.m.edamam.R
 import com.m.edamam.RecipeListAdapter
-import com.m.edamam.Retrofit
 import com.m.edamam.pojo.Recipe
-import com.m.edamam.repositories.RecipeRepository
-import com.m.edamam.views.DetailsFragmentView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_recipe_list.*
+import android.content.SharedPreferences
+import android.widget.Toast
+import android.R.id.edit
+import android.content.Context
+import com.m.edamam.constants.SPREF_PAG_SIZE
 
-class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListener {
+
+class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListener, PaginationSizeFragmentDialog.PaginationSizeDialogListener {
+
 
     lateinit var listener: OnQueryTextListener
+    var sPref: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +41,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         val searchView: SearchView = searchViewItem?.actionView as SearchView
         searchView.queryHint = "Search recipe"
 
+        //TODO перепистаь под RX
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (query.isEmpty()) return true
@@ -53,12 +59,33 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.action_pagination_size -> {
+                openDialog()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onClick(recipe: Recipe) {
         val recipeId = getRecipeId(recipe)
         doRecipeDetailsFragment(recipeId)
     }
 
-    fun doRecipeListTransaction(){
+    override fun setPaginationSize(size: Int) {
+        sPref = getPreferences(Context.MODE_PRIVATE)
+        val ed = sPref?.edit()
+        ed?.putInt(SPREF_PAG_SIZE, size)
+        ed?.apply()
+    }
+
+    fun openDialog() {
+        var dialog: PaginationSizeFragmentDialog = PaginationSizeFragmentDialog()
+        dialog.show(supportFragmentManager, "dialog")
+    }
+
+    fun doRecipeListTransaction() {
         val fragmentManager = supportFragmentManager
         val fragment = RecipeListFragment()
         listener = fragment
@@ -67,7 +94,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
                 .commit()
     }
 
-    fun doRecipeDetailsFragment(recipeId : String){
+    fun doRecipeDetailsFragment(recipeId: String) {
         val fragmentManager = supportFragmentManager
         val fragment = DetailsFragment.newInstance(recipeId)
         fragmentManager.beginTransaction()
@@ -75,7 +102,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
                 .commit()
     }
 
-    fun getRecipeId(recipe : Recipe): String {
+    fun getRecipeId(recipe: Recipe): String {
         return "1a39cf9cd8181d38ac551e5a4879ea66"
     }
 
