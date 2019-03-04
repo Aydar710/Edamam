@@ -54,7 +54,7 @@
         android:id="@+id/txt_recommend"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/we_recommend"
+        android:text="@string/recommend"
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"

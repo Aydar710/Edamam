@@ -85,4 +85,7 @@ dependencies {
     //room
     implementation "android.arch.persistence.room:runtime:1.1.1"
     kapt "android.arch.persistence.room:compiler:1.1.1"
+
+    //Room viewer
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 }

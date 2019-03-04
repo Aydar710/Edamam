@@ -51,11 +51,12 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
     }
 
     override fun getRecommendedRecipe() {
-        if (isOnline()) {
+        /*if (isOnline()) {
             presenter.getRecommendedRecipe()
         }else{
             presenter.getRecommendedRecipeFromDB()
-        }
+        }*/
+        presenter.getRecommendedRecipe()
     }
 
     override fun showRecommendedRecipe(recipe: Recipe) {

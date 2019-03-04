@@ -6,4 +6,5 @@
     <string name="label">label</string>
     <string name="ingredients">ingredients</string>
     <string name="we_recommend">We Recommend</string>
+    <string name="recommend">We Recommend</string>
 </resources>
