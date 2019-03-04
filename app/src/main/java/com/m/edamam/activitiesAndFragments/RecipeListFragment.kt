@@ -10,7 +10,9 @@ import android.view.*
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.m.edamam.R
+import com.m.edamam.constants.DEFAULT_PAGINATION_SIZE
 import com.m.edamam.constants.SPREF_PAG_SIZE
+import com.m.edamam.constants.TOTAL_ITEM_COUNT_MORE_THAN
 import com.m.edamam.pojo.Hit
 import com.m.edamam.presenters.RecipeListFragmentPresenter
 import com.m.edamam.views.RecipeListFragmentView
@@ -49,7 +51,7 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
                             && visibleItemCount != null) {
                         if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                                 && firstVisibleItemPosition >= 0
-                                && totalItemCount >= 10)
+                                && totalItemCount >= TOTAL_ITEM_COUNT_MORE_THAN)
 
                             getPaginationSizeFromPreferences()
                                     ?.let {
@@ -88,6 +90,6 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
         activity?.let {
             sPref = it.getPreferences(Context.MODE_PRIVATE)
         }
-        return sPref?.getInt(SPREF_PAG_SIZE, 10)
+        return sPref?.getInt(SPREF_PAG_SIZE, DEFAULT_PAGINATION_SIZE)
     }
 }
