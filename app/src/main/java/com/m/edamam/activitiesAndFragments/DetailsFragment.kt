@@ -10,6 +10,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.m.edamam.R
 import com.m.edamam.Retrofit
+import com.m.edamam.constants.ARG_RECIPE_ID
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.presenters.DetailsFragmentPresenter
 import com.m.edamam.repositories.EdamamApi
@@ -21,7 +22,6 @@ import kotlinx.android.synthetic.main.fragment_details.view.*
 
 class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
 
-    private val ARG_RECIPE_ID = "arg_recipe_id"
     private lateinit var id: String
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)

@@ -3,13 +3,14 @@ package com.m.edamam.activitiesAndFragments
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.SearchView
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.facebook.stetho.Stetho
 import com.m.edamam.R
 import com.m.edamam.RecipeListAdapter
 import com.m.edamam.pojo.Recipe
+import com.m.edamam.repositories.RecipeRepository
+import com.m.edamam.views.DetailsFragmentView
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.SharedPreferences
 import android.widget.Toast
@@ -31,7 +32,8 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
 
         Stetho.initializeWithDefaults(this)
 
-        doRecipeListTransaction()
+        //doRecipeListTransaction()
+        doRecommendationFragmentTransaction()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -70,7 +72,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
 
     override fun onClick(recipe: Recipe) {
         val recipeId = getRecipeId(recipe)
-        doRecipeDetailsFragment(recipeId)
+        doRecipeDetailsFragmentTransaction(recipeId)
     }
 
     override fun setPaginationSize(size: Int) {
@@ -94,9 +96,18 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
                 .commit()
     }
 
+    fun doRecipeDetailsFragmentTransaction(recipeId : String){
     fun doRecipeDetailsFragment(recipeId: String) {
         val fragmentManager = supportFragmentManager
         val fragment = DetailsFragment.newInstance(recipeId)
+        fragmentManager.beginTransaction()
+                .replace(R.id.container_main, fragment)
+                .commit()
+    }
+
+    fun doRecommendationFragmentTransaction(){
+        val fragmentManager = supportFragmentManager
+        val fragment = RecommendationFragment.newInstance()
         fragmentManager.beginTransaction()
                 .replace(R.id.container_main, fragment)
                 .commit()
