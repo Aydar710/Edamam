@@ -27,4 +27,8 @@ class RecipeRepository(val api: EdamamApi) {
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
+    fun getRecipesByName(query : String, currentPage : Int){
+        return
+    }
+
 }

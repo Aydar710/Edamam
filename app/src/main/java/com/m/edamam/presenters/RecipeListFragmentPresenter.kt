@@ -1,5 +1,6 @@
 package com.m.edamam.presenters
 
+import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.m.edamam.RecipeListAdapter
@@ -21,6 +22,7 @@ class RecipeListFragmentPresenter : MvpPresenter<RecipeListFragmentView>() {
         adapter = RecipeListAdapter()
     }
 
+    @SuppressLint("CheckResult")
     fun updateAdapter(query: String) {
         repository
                 .getRecipesByName(query)
@@ -35,6 +37,11 @@ class RecipeListFragmentPresenter : MvpPresenter<RecipeListFragmentView>() {
                             it.printStackTrace()
                         }
                 )
+    }
 
+    fun loadNextElements(currentPage : Int, query : String){
+        repository.getRecipesByName(query =  query,
+                from = "10 * currentPage"
+                to =  "10 * currentPage")
     }
 }

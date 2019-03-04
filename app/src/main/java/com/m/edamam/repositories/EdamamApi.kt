@@ -16,4 +16,11 @@ interface EdamamApi {
     fun getRecipeById(
             @Query("q") query: String
     ): Single<RecipesResponse>
+
+    @GET("search")
+    fun getRecipesByName(
+            @Query("q") query: String,
+            @Query("from") from: String,
+            @Query("to") to: String
+    ): Single<RecipesResponse>
 }
