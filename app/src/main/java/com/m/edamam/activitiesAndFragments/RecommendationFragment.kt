@@ -1,10 +1,12 @@
 package com.m.edamam.activitiesAndFragments
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.m.edamam.R
@@ -17,6 +19,8 @@ import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecommendationFragmentView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_recommendation.view.*
+import android.support.v4.content.ContextCompat.getSystemService
+
 
 class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentView {
 
@@ -29,19 +33,15 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
 
     companion object {
         @JvmStatic
-        fun newInstance(id: String) =
-                DetailsFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_RECIPE_ID, id)
-                    }
-                }
+        fun newInstance() =
+                RecommendationFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recommendation, container, false)
-        arguments?.let {
+        /*arguments?.let {
             id = it.getString(ARG_RECIPE_ID)
-        }
+        }*/
         return view
     }
 
@@ -51,22 +51,39 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
     }
 
     override fun getRecommendedRecipe() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (isOnline()) {
+            presenter.getRecommendedRecipe()
+        }else{
+            presenter.getRecommendedRecipeFromDB()
+        }
     }
 
     override fun showRecommendedRecipe(recipe: Recipe) {
-        /*view?.tx
-        view?.txt_ingredients?.text = recipe.ingredientLines.toString()
-        Picasso.get()
-                .load(recipe.image)
-                .into(view?.img_recipe_details)*/
-    }
-
-    private fun setRecipe(recipe: Recipe) {
         view?.txt_label_rec?.text = recipe.label
         view?.txt_ingredients_rec?.text = recipe.ingredientLines.toString()
         Picasso.get()
                 .load(recipe.image)
                 .into(view?.img_recipe_details_rec)
     }
+
+    fun hasConnection(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        var wifiInfo: NetworkInfo? = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+        if (wifiInfo != null && wifiInfo.isConnected) {
+            return true
+        }
+        wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+        if (wifiInfo != null && wifiInfo.isConnected) {
+            return true
+        }
+        wifiInfo = cm.activeNetworkInfo
+        return wifiInfo != null && wifiInfo.isConnected
+    }
+
+    fun isOnline(): Boolean {
+        val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val netInfo = cm!!.activeNetworkInfo
+        return netInfo != null && netInfo.isConnectedOrConnecting
+    }
+
 }

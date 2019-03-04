@@ -1,16 +1,14 @@
 package com.m.edamam.pojo
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Ignore
-import android.arch.persistence.room.TypeConverter
-import android.arch.persistence.room.TypeConverters
+import android.arch.persistence.room.*
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.m.edamam.database.IngredientsConverter
 
-@Entity(tableName = "hitRecipes")
+@Entity(tableName = "recipes")
 data class Recipe(
-
+        @PrimaryKey(autoGenerate = true)
+        var id : Int,
         @SerializedName("uri")
         @Expose
         var uri: String? = null,
@@ -49,7 +47,7 @@ data class Recipe(
         var cautions: List<Any>? = null,
         @SerializedName("ingredientLines")
         @Expose
-        @Ignore
+        @TypeConverters(IngredientsConverter::class)
         var ingredientLines: List<String>? = null,
         @SerializedName("ingredients")
         @Expose

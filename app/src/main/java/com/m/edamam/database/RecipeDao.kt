@@ -1,23 +1,23 @@
 package com.m.edamam.database
 
 import android.arch.persistence.room.*
-import com.m.edamam.pojo.Hit
+import com.m.edamam.pojo.Recipe
 
 @Dao
-interface HitDao {
+interface RecipeDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(hit: Hit)
+    fun insert(recipe: Recipe)
 
     @Update
-    fun update(hit: Hit)
+    fun update(recipe: Recipe)
 
 
     @Delete
-    fun delete(hit: Hit)
+    fun delete(recipe: Recipe)
 
     @Query("select * from recipes")
-    fun getAllAsList(): List<Hit>
+    fun getAllAsList(): List<Recipe>
 
     @Query("delete from recipes")
     fun clear()

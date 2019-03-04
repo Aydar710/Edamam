@@ -9,6 +9,11 @@ import java.util.stream.Collectors
 class IngredientsConverter {
 
     @TypeConverter
+    fun FromIngredients(ingredientsString: String): List<String> {
+        return Arrays.asList(ingredientsString.split(","))[0]
+    }
+
+    @TypeConverter
     fun toIngredients(ingredients: List<String>): String? {
         /*return ingredients.stream()
                 .collect(Collectors.joining(","))*/
@@ -20,8 +25,4 @@ class IngredientsConverter {
         return ingredientsString.toString()
     }
 
-    @TypeConverter
-    fun FromIngredients(ingredientsString: String): List<String> {
-        return Arrays.asList(ingredientsString.split(","))[0]
-    }
 }
