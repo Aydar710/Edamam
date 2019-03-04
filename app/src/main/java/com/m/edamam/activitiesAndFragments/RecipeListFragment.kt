@@ -49,7 +49,7 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
                 if (!isLastPage) {
                     if (firstVisibleItemPosition != null && totalItemCount != null
                             && visibleItemCount != null) {
-                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                        if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
                                 && firstVisibleItemPosition >= 0
                                 && totalItemCount >= TOTAL_ITEM_COUNT_MORE_THAN)
 
