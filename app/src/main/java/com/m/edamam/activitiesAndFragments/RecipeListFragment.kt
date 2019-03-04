@@ -24,10 +24,10 @@ import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainActivity.OnQueryTextListener {
 
     @InjectPresenter
-    lateinit var presenter: RecipeListFragmentPresenter
-    lateinit var manager: LinearLayoutManager
-    lateinit var queryText : String
-    lateinit var sPref : SharedPreferences
+    var presenter: RecipeListFragmentPresenter? = null
+    var manager: LinearLayoutManager? = null
+    var queryText: String? = null
+    var sPref: SharedPreferences? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
@@ -36,8 +36,8 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
         var rv = view.recycler_recipes
         manager = LinearLayoutManager(activity)
         rv.layoutManager = manager
-        rv.adapter = presenter.adapter
-        presenter.adapter.listItemClickListener = activity as MainActivity
+        rv.adapter = presenter?.adapter
+        presenter?.adapter?.listItemClickListener = activity as MainActivity
 
         rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             private var currentPage: Int = 0
@@ -45,16 +45,19 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val visibleItemCount = manager.getChildCount()
-                val totalItemCount = manager.getItemCount()
-                val firstVisibleItemPosition = manager.findFirstVisibleItemPosition()
+                val visibleItemCount = manager?.getChildCount()
+                val totalItemCount = manager?.getItemCount()
+                val firstVisibleItemPosition = manager?.findFirstVisibleItemPosition()
 
                 if (!isLastPage) {
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-                            && firstVisibleItemPosition >= 0
-                            && totalItemCount >= 10)
+                    if (firstVisibleItemPosition != null && totalItemCount != null
+                            && visibleItemCount != null) {
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                                && firstVisibleItemPosition >= 0
+                                && totalItemCount >= 10)
 
-                        presenter.loadNextElements(++currentPage, queryText, getPaginationSizeFromPreferences())
+                            getPaginationSizeFromPreferences()?.let { presenter?.loadNextElements(++currentPage, queryText.toString(), it) }
+                    }
                 }
             }
         })
@@ -62,18 +65,18 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
     }
 
     override fun updateAdapterByQueryResult(query: String) {
-        presenter.updateAdapter(query)
+        presenter?.updateAdapter(query)
     }
 
     override fun submitListIntoAdapter(list: List<Hit>) {
-        presenter.adapter.submitList(list)
+        presenter?.adapter?.submitList(list)
     }
 
     override fun addElementsToAdapter(list: List<Hit>) {
-        var hitList : ArrayList<Hit> = ArrayList()
-        hitList.addAll(presenter.adapter.getList())
+        var hitList: ArrayList<Hit> = ArrayList()
+        presenter?.adapter?.getList()?.let { hitList.addAll(it) }
         hitList.addAll(list)
-        presenter.adapter.submitList(hitList)
+        presenter?.adapter?.submitList(hitList)
     }
 
     override fun onQueryTextChanged(query: String) {
@@ -82,10 +85,10 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
         updateAdapterByQueryResult(query)
     }
 
-    fun getPaginationSizeFromPreferences(): Int {
+    fun getPaginationSizeFromPreferences(): Int? {
         activity?.let {
             sPref = it.getPreferences(Context.MODE_PRIVATE)
         }
-        return sPref.getInt(SPREF_PAG_SIZE, 10)
+        return sPref?.getInt(SPREF_PAG_SIZE, 10)
     }
 }

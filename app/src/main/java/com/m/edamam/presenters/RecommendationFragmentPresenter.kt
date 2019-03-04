@@ -13,13 +13,15 @@ import java.util.*
 
 @InjectViewState
 class RecommendationFragmentPresenter : MvpPresenter<RecommendationFragmentView>() {
-    private lateinit var repository: RecipeRepository
-    private lateinit var repositoryDb: RecipeRepositoryDb
-    private lateinit var listOfRecipeIds: ArrayList<String>
+    private  var repository: RecipeRepository
+    private  var repositoryDb: RecipeRepositoryDb? = null
+    private  var listOfRecipeIds: ArrayList<String>
 
     init {
         repository = RecipeRepository(Retrofit.instance.getEdamamService())
-        repositoryDb = RecipeRepositoryDb(MyApplication.context)
+        MyApplication.context?.let {
+            repositoryDb = RecipeRepositoryDb(it)
+        }
         listOfRecipeIds = ArrayList()
         listOfRecipeIds.add("1a39cf9cd8181d38ac551e5a4879ea66")
         listOfRecipeIds.add("bbafa625a135b8c7c1b63e15d839f0e4")
@@ -34,8 +36,8 @@ class RecommendationFragmentPresenter : MvpPresenter<RecommendationFragmentView>
         val randomInt = random.nextInt(listOfRecipeIds.size)
         repository.getRecipeById(listOfRecipeIds[randomInt])
                 .map {
-                    repositoryDb.clear()
-                    repositoryDb.save(it)
+                    repositoryDb?.clear()
+                    repositoryDb?.save(it)
                     it
                 }
                 .subscribe({
@@ -49,6 +51,6 @@ class RecommendationFragmentPresenter : MvpPresenter<RecommendationFragmentView>
     }
 
     fun getRecommendedRecipeFromDB() {
-        repositoryDb.getRecommendedRecipe()
+        repositoryDb?.getRecommendedRecipe()
     }
 }

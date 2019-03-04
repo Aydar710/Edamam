@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_dialog.*
 
 class PaginationSizeFragmentDialog : AppCompatDialogFragment() {
 
-    lateinit var listener : PaginationSizeDialogListener
+     var listener : PaginationSizeDialogListener? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         var builder: AlertDialog.Builder? = activity?.let { AlertDialog.Builder(it) }
@@ -27,7 +27,7 @@ class PaginationSizeFragmentDialog : AppCompatDialogFragment() {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
                 ?.setPositiveButton("Ok") { dialog, which ->
-                    listener.setPaginationSize(Integer.parseInt(et_pagination_size.text.toString()))
+                    listener?.setPaginationSize(Integer.parseInt(et_pagination_size.text.toString()))
                 }
 
         return builder?.create()!!

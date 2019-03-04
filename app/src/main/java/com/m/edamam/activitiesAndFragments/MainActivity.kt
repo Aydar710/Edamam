@@ -19,7 +19,10 @@ import android.content.Context
 import com.m.edamam.constants.SPREF_PAG_SIZE
 
 
-class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListener, PaginationSizeFragmentDialog.PaginationSizeDialogListener {
+class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListener,
+        PaginationSizeFragmentDialog.PaginationSizeDialogListener,
+        RecommendationFragment.BtnSearchClickListener {
+
 
 
     lateinit var listener: OnQueryTextListener
@@ -82,6 +85,10 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         ed?.apply()
     }
 
+    override fun onBtnSearchClicked() {
+        doRecipeListTransaction()
+    }
+
     fun openDialog() {
         var dialog: PaginationSizeFragmentDialog = PaginationSizeFragmentDialog()
         dialog.show(supportFragmentManager, "dialog")
@@ -96,16 +103,17 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
                 .commit()
     }
 
-    fun doRecipeDetailsFragmentTransaction(recipeId : String){
-    fun doRecipeDetailsFragment(recipeId: String) {
-        val fragmentManager = supportFragmentManager
-        val fragment = DetailsFragment.newInstance(recipeId)
-        fragmentManager.beginTransaction()
-                .replace(R.id.container_main, fragment)
-                .commit()
+    fun doRecipeDetailsFragmentTransaction(recipeId: String) {
+        fun doRecipeDetailsFragment(recipeId: String) {
+            val fragmentManager = supportFragmentManager
+            val fragment = DetailsFragment.newInstance(recipeId)
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container_main, fragment)
+                    .commit()
+        }
     }
 
-    fun doRecommendationFragmentTransaction(){
+    fun doRecommendationFragmentTransaction() {
         val fragmentManager = supportFragmentManager
         val fragment = RecommendationFragment.newInstance()
         fragmentManager.beginTransaction()
@@ -120,4 +128,5 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
     interface OnQueryTextListener {
         fun onQueryTextChanged(query: String)
     }
+
 }

@@ -7,21 +7,23 @@ import com.m.edamam.database.RecipeDb
 import com.m.edamam.pojo.Recipe
 
 class RecipeRepositoryDb(context: Context) {
-    private lateinit var db: RecipeDao
+    private var db: RecipeDao? = null
 
     init {
-        RecipeDb.getInstance(MyApplication.context).getRecipeDao()
+        MyApplication.context?.let {
+            RecipeDb.getInstance(it).getRecipeDao()
+        }
     }
 
     fun getRecommendedRecipe(): Recipe? {
-        return db.getAllAsList()[0]
+        return db?.getAllAsList()?.get(0)
     }
 
     fun save(recipe : Recipe){
-        db.insert(recipe)
+        db?.insert(recipe)
     }
 
     fun clear(){
-        db.clear()
+        db?.clear()
     }
 }

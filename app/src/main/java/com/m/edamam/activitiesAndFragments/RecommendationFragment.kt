@@ -27,6 +27,7 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
     private lateinit var id: String
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
+    private lateinit var btnSearchClickListener: BtnSearchClickListener
 
     @InjectPresenter
     lateinit var presenter: RecommendationFragmentPresenter
@@ -39,9 +40,11 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recommendation, container, false)
-        /*arguments?.let {
-            id = it.getString(ARG_RECIPE_ID)
-        }*/
+        btnSearchClickListener = activity as MainActivity
+
+        view.btn_search_recipes.setOnClickListener{
+            btnSearchClickListener.onBtnSearchClicked()
+        }
         return view
     }
 
@@ -85,6 +88,10 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
         val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         val netInfo = cm!!.activeNetworkInfo
         return netInfo != null && netInfo.isConnectedOrConnecting
+    }
+
+    interface BtnSearchClickListener{
+        fun onBtnSearchClicked()
     }
 
 }

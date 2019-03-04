@@ -13,8 +13,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 
 @InjectViewState
 class RecipeListFragmentPresenter : MvpPresenter<RecipeListFragmentView>() {
-    lateinit var repository: RecipeRepository
-    lateinit var adapter: RecipeListAdapter
+     var repository: RecipeRepository
+     var adapter: RecipeListAdapter
 
     init {
         val retrofit = Retrofit.instance
