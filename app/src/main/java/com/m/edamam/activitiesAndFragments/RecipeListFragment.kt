@@ -64,6 +64,13 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
         presenter.adapter.submitList(list)
     }
 
+    override fun addElementsToAdapter(list: List<Hit>) {
+        var hitList : ArrayList<Hit> = ArrayList()
+        hitList.addAll(presenter.adapter.getList())
+        hitList.addAll(list)
+        presenter.adapter.submitList(hitList)
+    }
+
     override fun onQueryTextChanged(query: String) {
         Log.i("Tag", query)
         queryText = query

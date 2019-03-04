@@ -51,6 +51,14 @@ class RecipeListAdapter : ListAdapter<Hit, RecipeListAdapter.RecipeHolder>(HitDi
 
     }
 
+    fun getList(): ArrayList<Hit> {
+        var hitList : ArrayList<Hit> = ArrayList()
+        for (i in 0 until itemCount){
+            hitList.add(getItem(i))
+        }
+        return hitList
+    }
+
     interface ListItemClickListener {
         fun onClick(recipe: Recipe)
     }

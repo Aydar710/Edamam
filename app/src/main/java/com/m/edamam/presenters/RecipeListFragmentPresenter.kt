@@ -39,9 +39,16 @@ class RecipeListFragmentPresenter : MvpPresenter<RecipeListFragmentView>() {
                 )
     }
 
-    fun loadNextElements(currentPage : Int, query : String){
-        repository.getRecipesByName(query =  query,
-                from = "10 * currentPage"
-                to =  "10 * currentPage")
+    @SuppressLint("CheckResult")
+    fun loadNextElements(currentPage: Int, query: String) {
+        repository.getRecipesByName(query = query, currentPage = currentPage)
+                .subscribe({
+                    it?.let { it1 ->
+                        viewState.addElementsToAdapter(it1)
+                    }
+                },
+                        {
+                            it.printStackTrace()
+                        })
     }
 }
