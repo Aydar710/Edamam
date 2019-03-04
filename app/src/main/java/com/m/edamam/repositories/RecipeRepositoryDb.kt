@@ -15,9 +15,9 @@ class RecipeRepositoryDb(context: Context) {
         }
     }
 
-    fun getRecommendedRecipe(): Recipe? {
-        return db?.getAllAsList()?.get(0)
-    }
+    fun getRecommendedRecipe(): Recipe? =
+         db?.getAllAsList()?.get(0)
+
 
     fun save(recipe : Recipe){
         db?.insert(recipe)

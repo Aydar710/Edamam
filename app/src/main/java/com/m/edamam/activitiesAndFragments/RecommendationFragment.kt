@@ -19,13 +19,12 @@ import com.m.edamam.views.RecommendationFragmentView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_recommendation.view.*
 
-
 class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentView {
 
-    private lateinit var id: String
+    private  var id: String? = null
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
-    private lateinit var btnSearchClickListener: BtnSearchClickListener
+    private var btnSearchClickListener: BtnSearchClickListener? = null
 
     @InjectPresenter
     lateinit var presenter: RecommendationFragmentPresenter
@@ -41,7 +40,7 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
         btnSearchClickListener = activity as MainActivity
 
         view.btn_search_recipes.setOnClickListener{
-            btnSearchClickListener.onBtnSearchClicked()
+            btnSearchClickListener?.onBtnSearchClicked()
         }
         return view
     }
@@ -91,5 +90,4 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
     interface BtnSearchClickListener{
         fun onBtnSearchClicked()
     }
-
 }

@@ -36,5 +36,4 @@ class RecipeRepository(val api: EdamamApi) {
                 .observeOn(AndroidSchedulers.mainThread())
 
     }
-
 }

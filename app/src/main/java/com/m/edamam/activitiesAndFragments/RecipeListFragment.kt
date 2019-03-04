@@ -16,7 +16,6 @@ import com.m.edamam.presenters.RecipeListFragmentPresenter
 import com.m.edamam.views.RecipeListFragmentView
 import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 
-
 class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainActivity.OnQueryTextListener {
 
     @InjectPresenter
@@ -52,7 +51,11 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
                                 && firstVisibleItemPosition >= 0
                                 && totalItemCount >= 10)
 
-                            getPaginationSizeFromPreferences()?.let { presenter?.loadNextElements(++currentPage, queryText.toString(), it) }
+                            getPaginationSizeFromPreferences()
+                                    ?.let {
+                                        presenter?.loadNextElements(++currentPage,
+                                                queryText.toString(), it)
+                                    }
                     }
                 }
             }

@@ -14,14 +14,12 @@ import android.content.SharedPreferences
 import android.content.Context
 import com.m.edamam.constants.SPREF_PAG_SIZE
 
-
 class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListener,
         PaginationSizeFragmentDialog.PaginationSizeDialogListener,
         RecommendationFragment.BtnSearchClickListener {
 
 
-
-    lateinit var listener: OnQueryTextListener
+    var listener: OnQueryTextListener? = null
     var sPref: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,13 +44,13 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (query.isEmpty()) return true
-                listener.onQueryTextChanged(query)
+                listener?.onQueryTextChanged(query)
                 return true
             }
 
             override fun onQueryTextChange(query: String): Boolean {
                 if (query.isEmpty()) return true
-                listener.onQueryTextChanged(query)
+                listener?.onQueryTextChanged(query)
                 return true
             }
         })
@@ -117,12 +115,11 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
                 .commit()
     }
 
-    fun getRecipeId(recipe: Recipe): String {
-        return "1a39cf9cd8181d38ac551e5a4879ea66"
-    }
+    fun getRecipeId(recipe: Recipe): String =
+            "1a39cf9cd8181d38ac551e5a4879ea66"
+
 
     interface OnQueryTextListener {
         fun onQueryTextChanged(query: String)
     }
-
 }

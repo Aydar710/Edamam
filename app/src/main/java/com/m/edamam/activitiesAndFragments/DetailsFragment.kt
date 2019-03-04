@@ -18,10 +18,9 @@ import com.m.edamam.views.DetailsFragmentView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.view.*
 
-
 class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
 
-    private lateinit var id: String
+    private  var id: String? = null
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
 
@@ -53,7 +52,7 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
     }
 
     override fun loadRecipeDetails() {
-        presenter.getRecipeDetails(id)
+        id?.let { presenter.getRecipeDetails(it) }
     }
 
     override fun showRecipeDetails(recipe: Recipe) {
@@ -67,5 +66,4 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
                 .load(recipe.image)
                 .into(view?.img_recipe_details)
     }
-
 }

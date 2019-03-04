@@ -26,7 +26,8 @@ class RecipeListAdapter : ListAdapter<Hit, RecipeListAdapter.RecipeHolder>(HitDi
         }
     }
 
-    inner class RecipeHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class RecipeHolder(override val containerView: View) :
+            RecyclerView.ViewHolder(containerView), LayoutContainer {
         var imgRecipe = containerView.img_recipe
         var txtLabel = containerView.txt_label
         var txtCalories = containerView.txt_calories
@@ -52,8 +53,8 @@ class RecipeListAdapter : ListAdapter<Hit, RecipeListAdapter.RecipeHolder>(HitDi
     }
 
     fun getList(): ArrayList<Hit> {
-        var hitList : ArrayList<Hit> = ArrayList()
-        for (i in 0 until itemCount){
+        var hitList: ArrayList<Hit> = ArrayList()
+        for (i in 0 until itemCount) {
             hitList.add(getItem(i))
         }
         return hitList

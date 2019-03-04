@@ -27,6 +27,4 @@ class DetailsFragmentPresenter : MvpPresenter<DetailsFragmentView>() {
                         }
                 )
     }
-
-
 }
