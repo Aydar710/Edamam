@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.content.SharedPreferences
 import android.content.Context
 import com.m.edamam.constants.SPREF_PAG_SIZE
+import com.m.edamam.constants.TEST_RECIPE_ID
 
 class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListener,
         PaginationSizeFragmentDialog.PaginationSizeDialogListener,
@@ -60,9 +61,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.action_pagination_size -> {
-                openDialog()
-            }
+            R.id.action_pagination_size -> openDialog()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -116,7 +115,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
     }
 
     fun getRecipeId(recipe: Recipe): String =
-            "1a39cf9cd8181d38ac551e5a4879ea66"
+            TEST_RECIPE_ID
 
 
     interface OnQueryTextListener {
