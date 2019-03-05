@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainActivity.OnQueryTextListener {
 
     @InjectPresenter
-    var presenter: RecipeListFragmentPresenter? = null
+    lateinit var presenter: RecipeListFragmentPresenter
     var manager: LinearLayoutManager? = null
     var queryText: String? = null
     var sPref: SharedPreferences? = null

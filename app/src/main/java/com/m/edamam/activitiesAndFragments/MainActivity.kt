@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
 
         Stetho.initializeWithDefaults(this)
 
-        //doRecipeListTransaction()
-        doRecommendationFragmentTransaction()
+        doRecipeListTransaction()
+        //doRecommendationFragmentTransaction()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -97,13 +97,12 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
     }
 
     fun doRecipeDetailsFragmentTransaction(recipeId: String) {
-        fun doRecipeDetailsFragment(recipeId: String) {
-            val fragmentManager = supportFragmentManager
-            val fragment = DetailsFragment.newInstance(recipeId)
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container_main, fragment)
-                    .commit()
-        }
+        val fragmentManager = supportFragmentManager
+        val fragment = DetailsFragment.newInstance(recipeId)
+        fragmentManager.beginTransaction()
+                .replace(R.id.container_main, fragment)
+                .commit()
+
     }
 
     fun doRecommendationFragmentTransaction() {
