@@ -10,7 +10,6 @@ class IngredientsConverter {
     fun FromIngredients(ingredientsString: String): List<String> =
          Arrays.asList(ingredientsString.split(","))[0]
 
-
     @TypeConverter
     fun toIngredients(ingredients: List<String>): String? {
         /*return ingredients.stream()
@@ -19,7 +18,6 @@ class IngredientsConverter {
         ingredients.forEach {
             ingredientsString.append("${it},")
         }
-
         return ingredientsString.toString()
     }
 }

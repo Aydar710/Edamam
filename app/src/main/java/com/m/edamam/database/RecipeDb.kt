@@ -7,8 +7,9 @@ import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import com.m.edamam.pojo.Recipe
 
-@Database(entities = arrayOf(Recipe::class), version = 1)
+
 @TypeConverters(IngredientsConverter::class)
+@Database(entities = arrayOf(Recipe::class), version = 1, exportSchema = false)
 abstract class RecipeDb : RoomDatabase() {
 
     abstract fun getRecipeDao(): RecipeDao
@@ -20,7 +21,6 @@ abstract class RecipeDb : RoomDatabase() {
             if(dbInstance == null){
                 dbInstance = Room.databaseBuilder(context,
                         RecipeDb::class.java, DATABASE_NAME).build()
-
             }
             return dbInstance as RecipeDb
         }

@@ -10,5 +10,4 @@ data class Ingredient (
     @SerializedName("weight")
     @Expose
     var weight: Double? = null
-
 )

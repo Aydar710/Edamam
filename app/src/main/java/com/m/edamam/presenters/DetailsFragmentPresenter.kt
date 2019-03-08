@@ -9,10 +9,12 @@ import com.m.edamam.views.DetailsFragmentView
 
 @InjectViewState
 class DetailsFragmentPresenter : MvpPresenter<DetailsFragmentView>() {
-    var repository: RecipeRepository
 
-    init {
-        repository = RecipeRepository(Retrofit.instance.getEdamamService())
+   private var repository: RecipeRepository = RecipeRepository(Retrofit.instance.getEdamamService())
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        viewState.loadRecipeDetails()
     }
 
     @SuppressLint("CheckResult")

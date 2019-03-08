@@ -5,6 +5,10 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.m.edamam.MyApplication
 import com.m.edamam.Retrofit
+import com.m.edamam.constants.RECIPE_ID_1
+import com.m.edamam.constants.RECIPE_ID_2
+import com.m.edamam.constants.RECIPE_ID_3
+import com.m.edamam.constants.RECIPE_ID_4
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.repositories.RecipeRepositoryDb
 import com.m.edamam.views.RecommendationFragmentView
@@ -22,12 +26,11 @@ class RecommendationFragmentPresenter : MvpPresenter<RecommendationFragmentView>
             repositoryDb = RecipeRepositoryDb(it)
         }
         listOfRecipeIds = ArrayList()
-        listOfRecipeIds.add("1a39cf9cd8181d38ac551e5a4879ea66")
-        listOfRecipeIds.add("bbafa625a135b8c7c1b63e15d839f0e4")
-        listOfRecipeIds.add("d9dd328cb9c587265743511df941fa4f")
-        listOfRecipeIds.add("1a8963d37a6edc728a2e2e0754b505cf")
+        listOfRecipeIds.add(RECIPE_ID_1)
+        listOfRecipeIds.add(RECIPE_ID_2)
+        listOfRecipeIds.add(RECIPE_ID_3)
+        listOfRecipeIds.add(RECIPE_ID_4)
     }
-
 
     @SuppressLint("CheckResult")
     fun getRecommendedRecipe() {

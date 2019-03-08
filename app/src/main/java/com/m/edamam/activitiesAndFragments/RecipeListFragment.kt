@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.m.edamam.R
@@ -22,19 +23,17 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
 
     @InjectPresenter
     lateinit var presenter: RecipeListFragmentPresenter
-    var manager: LinearLayoutManager? = null
+
     var queryText: String? = null
     var sPref: SharedPreferences? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
-
-
-        var rv = view.recycler_recipes
-        manager = LinearLayoutManager(activity)
+        val rv = view.recycler_recipes
+        val manager = LinearLayoutManager(activity)
         rv.layoutManager = manager
-        rv.adapter = presenter?.adapter
-        presenter?.adapter?.listItemClickListener = activity as MainActivity
+        rv.adapter = presenter.adapter
+        presenter.adapter.listItemClickListener = activity as MainActivity
 
         rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             private var currentPage: Int = 0
@@ -42,23 +41,20 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val visibleItemCount = manager?.getChildCount()
-                val totalItemCount = manager?.getItemCount()
-                val firstVisibleItemPosition = manager?.findFirstVisibleItemPosition()
+                val visibleItemCount = manager.getChildCount()
+                val totalItemCount = manager.getItemCount()
+                val firstVisibleItemPosition = manager.findFirstVisibleItemPosition()
 
                 if (!isLastPage) {
-                    if (firstVisibleItemPosition != null && totalItemCount != null
-                            && visibleItemCount != null) {
-                        if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
-                                && firstVisibleItemPosition >= 0
-                                && totalItemCount >= TOTAL_ITEM_COUNT_MORE_THAN)
+                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
+                            && firstVisibleItemPosition >= 0
+                            && totalItemCount >= TOTAL_ITEM_COUNT_MORE_THAN)
 
-                            getPaginationSizeFromPreferences()
-                                    ?.let {
-                                        presenter?.loadNextElements(++currentPage,
-                                                queryText.toString(), it)
-                                    }
-                    }
+                        getPaginationSizeFromPreferences()
+                                ?.let {
+                                    presenter.loadNextElements(++currentPage,
+                                            queryText.toString(), it)
+                                }
                 }
             }
         })
@@ -66,24 +62,28 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
     }
 
     override fun updateAdapterByQueryResult(query: String) {
-        presenter?.updateAdapter(query)
+        presenter.updateAdapter(query)
     }
 
     override fun submitListIntoAdapter(list: List<Hit>) {
-        presenter?.adapter?.submitList(list)
+        presenter.adapter.submitList(list as MutableList<Hit>)
     }
 
     override fun addElementsToAdapter(list: List<Hit>) {
-        var hitList: ArrayList<Hit> = ArrayList()
-        presenter?.adapter?.getList()?.let { hitList.addAll(it) }
+        val hitList: ArrayList<Hit> = ArrayList()
+        presenter.adapter.getList().let { hitList.addAll(it) }
         hitList.addAll(list)
-        presenter?.adapter?.submitList(hitList)
+        presenter.adapter.submitList(hitList)
     }
 
     override fun onQueryTextChanged(query: String) {
         Log.i("Tag", query)
         queryText = query
         updateAdapterByQueryResult(query)
+    }
+
+    override fun showError(error : String) {
+        Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
     }
 
     fun getPaginationSizeFromPreferences(): Int? {

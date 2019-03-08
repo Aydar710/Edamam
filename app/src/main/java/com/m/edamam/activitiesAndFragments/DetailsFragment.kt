@@ -46,11 +46,6 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        loadRecipeDetails()
-    }
-
     override fun loadRecipeDetails() {
         id?.let { presenter.getRecipeDetails(it) }
     }

@@ -12,13 +12,12 @@ interface RecipeDao {
     @Update
     fun update(recipe: Recipe)
 
-
     @Delete
     fun delete(recipe: Recipe)
 
-    @Query("select * from recipes")
+    @Query("SELECT * FROM recipes")
     fun getAllAsList(): List<Recipe>
 
-    @Query("delete from recipes")
+    @Query("DELETE FROM recipes")
     fun clear()
 }

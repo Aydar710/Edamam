@@ -7,6 +7,7 @@ import com.m.edamam.database.RecipeDb
 import com.m.edamam.pojo.Recipe
 
 class RecipeRepositoryDb(context: Context) {
+
     private var db: RecipeDao? = null
 
     init {
@@ -17,7 +18,6 @@ class RecipeRepositoryDb(context: Context) {
 
     fun getRecommendedRecipe(): Recipe? =
          db?.getAllAsList()?.get(0)
-
 
     fun save(recipe : Recipe){
         db?.insert(recipe)

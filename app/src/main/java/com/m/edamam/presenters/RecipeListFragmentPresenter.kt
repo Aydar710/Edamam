@@ -5,14 +5,15 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.m.edamam.RecipeListAdapter
 import com.m.edamam.Retrofit
+import com.m.edamam.pojo.Hit
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecipeListFragmentView
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 @InjectViewState
 class RecipeListFragmentPresenter : MvpPresenter<RecipeListFragmentView>() {
-     var repository: RecipeRepository
-     var adapter: RecipeListAdapter
+    var repository: RecipeRepository
+    var adapter: RecipeListAdapter
 
     init {
         val retrofit = Retrofit.instance
@@ -28,11 +29,13 @@ class RecipeListFragmentPresenter : MvpPresenter<RecipeListFragmentView>() {
                 .subscribe(
                         {
                             it?.let { list ->
-                                viewState.submitListIntoAdapter(list)
+                                val mList: MutableList<Hit> = ArrayList()
+                                mList.addAll(list)
+                                viewState.submitListIntoAdapter(mList)
                             }
                         },
                         {
-                            it.printStackTrace()
+                            viewState.showError("Произошла ошибка при загрузке данных")
                         }
                 )
     }

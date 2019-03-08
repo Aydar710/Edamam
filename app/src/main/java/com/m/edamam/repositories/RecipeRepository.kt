@@ -15,7 +15,6 @@ class RecipeRepository(val api: EdamamApi) {
                         it.hits
                     }
 
-
     fun getRecipeById(query: String): Single<Recipe?> {
         return api
                 .getRecipeById(query)
@@ -34,6 +33,5 @@ class RecipeRepository(val api: EdamamApi) {
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-
     }
 }
