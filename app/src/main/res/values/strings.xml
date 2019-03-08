@@ -7,4 +7,5 @@
     <string name="we_recommend">We Recommend</string>
     <string name="recommend">We Recommend</string>
     <string name="searh">Searh</string>
+    <string name="pagination_size">pagination size</string>
 </resources>

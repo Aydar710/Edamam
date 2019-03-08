@@ -12,5 +12,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        android:hint="pagination size" />
+        android:hint="@string/pagination_size" />
 </LinearLayout>
