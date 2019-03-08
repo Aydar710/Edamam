@@ -31,7 +31,6 @@ class PaginationSizeFragmentDialog : AppCompatDialogFragment() {
                     var size: String = etPaginationSize?.text.toString()
                     listener?.setPaginationSize(Integer.parseInt(size))
                 }
-
         return builder?.create()!!
     }
 
