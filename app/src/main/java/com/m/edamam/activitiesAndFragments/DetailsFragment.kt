@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.viewstate.MvpViewState
 
 import com.m.edamam.R
 import com.m.edamam.Retrofit
@@ -19,6 +21,9 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.view.*
 
 class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
+    override fun handleError(error: Throwable) {
+        Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
+    }
 
     private  var id: String? = null
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
