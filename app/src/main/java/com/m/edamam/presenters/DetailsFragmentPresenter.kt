@@ -25,7 +25,7 @@ class DetailsFragmentPresenter : MvpPresenter<DetailsFragmentView>() {
                             it?.let { it1 -> viewState.showRecipeDetails(it1) }
                         },
                         {
-                            it.printStackTrace()
+                            viewState.handleError(it)
                         }
                 )
     }
