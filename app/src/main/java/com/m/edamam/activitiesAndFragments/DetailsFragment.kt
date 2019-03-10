@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 
 import com.m.edamam.R
 import com.m.edamam.Retrofit
@@ -26,6 +27,10 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
 
     @InjectPresenter
     lateinit var presenter: DetailsFragmentPresenter
+
+    @ProvidePresenter
+    fun initPresenter() : DetailsFragmentPresenter =
+            DetailsFragmentPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
 
     companion object {
         @JvmStatic

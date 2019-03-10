@@ -4,22 +4,17 @@ import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.m.edamam.RecipeListAdapter
-import com.m.edamam.Retrofit
 import com.m.edamam.pojo.Hit
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecipeListFragmentView
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 @InjectViewState
-class RecipeListFragmentPresenter : MvpPresenter<RecipeListFragmentView>() {
-    var repository: RecipeRepository
-    var adapter: RecipeListAdapter
+open class RecipeListFragmentPresenter(private val repository: RecipeRepository)
+    : MvpPresenter<RecipeListFragmentView>() {
 
-    init {
-        val retrofit = Retrofit.instance
-        repository = RecipeRepository(retrofit.getEdamamService())
-        adapter = RecipeListAdapter()
-    }
+    //var repository: RecipeRepository = RecipeRepository(Retrofit.instance.getEdamamService())
+    var adapter: RecipeListAdapter = RecipeListAdapter()
 
     @SuppressLint("CheckResult")
     fun updateAdapter(query: String) {

@@ -15,17 +15,15 @@ import com.m.edamam.views.RecommendationFragmentView
 import java.util.*
 
 @InjectViewState
-class RecommendationFragmentPresenter : MvpPresenter<RecommendationFragmentView>() {
-    private  var repository: RecipeRepository
-    private  var repositoryDb: RecipeRepositoryDb? = null
-    private  var listOfRecipeIds: ArrayList<String>
+open class RecommendationFragmentPresenter(
+        private var repository: RecipeRepository
+) : MvpPresenter<RecommendationFragmentView>() {
+
+    //var repository: RecipeRepository = RecipeRepository(Retrofit.instance.getEdamamService())
+    var listOfRecipeIds: ArrayList<String> = ArrayList()
 
     init {
-        repository = RecipeRepository(Retrofit.instance.getEdamamService())
-        MyApplication.context?.let {
-            repositoryDb = RecipeRepositoryDb(it)
-        }
-        listOfRecipeIds = ArrayList()
+
         listOfRecipeIds.add(RECIPE_ID_1)
         listOfRecipeIds.add(RECIPE_ID_2)
         listOfRecipeIds.add(RECIPE_ID_3)
@@ -34,14 +32,7 @@ class RecommendationFragmentPresenter : MvpPresenter<RecommendationFragmentView>
 
     @SuppressLint("CheckResult")
     fun getRecommendedRecipe() {
-        val random: Random = Random()
-        val randomInt = random.nextInt(listOfRecipeIds.size)
-        repository.getRecipeById(listOfRecipeIds[randomInt])
-                .map {
-                    repositoryDb?.clear()
-                    repositoryDb?.save(it)
-                    it
-                }
+        repository.getRecipeById(getRandomRecipeIdFromList())
                 .subscribe({
                     it?.let {
                         viewState.showRecommendedRecipe(it)
@@ -52,7 +43,13 @@ class RecommendationFragmentPresenter : MvpPresenter<RecommendationFragmentView>
                         })
     }
 
-    fun getRecommendedRecipeFromDB() {
+    /*fun getRecommendedRecipeFromDB() {
         repositoryDb?.getRecommendedRecipe()
+    }*/
+
+    open fun getRandomRecipeIdFromList(): String {
+        val random: Random = Random()
+        val randomInt = random.nextInt(listOfRecipeIds.size)
+        return listOfRecipeIds[randomInt]
     }
 }

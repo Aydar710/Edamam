@@ -10,12 +10,15 @@ import android.view.*
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.m.edamam.R
+import com.m.edamam.Retrofit
 import com.m.edamam.constants.DEFAULT_PAGINATION_SIZE
 import com.m.edamam.constants.SPREF_PAG_SIZE
 import com.m.edamam.constants.TOTAL_ITEM_COUNT_MORE_THAN
 import com.m.edamam.pojo.Hit
 import com.m.edamam.presenters.RecipeListFragmentPresenter
+import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecipeListFragmentView
 import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 
@@ -23,6 +26,10 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
 
     @InjectPresenter
     lateinit var presenter: RecipeListFragmentPresenter
+
+    @ProvidePresenter
+    fun initPresenter(): RecipeListFragmentPresenter =
+            RecipeListFragmentPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
 
     var queryText: String? = null
     var sPref: SharedPreferences? = null
@@ -82,7 +89,7 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
         updateAdapterByQueryResult(query)
     }
 
-    override fun showError(error : String) {
+    override fun showError(error: String) {
         Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
     }
 

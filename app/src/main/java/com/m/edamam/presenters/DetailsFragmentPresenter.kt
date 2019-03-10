@@ -8,9 +8,10 @@ import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.DetailsFragmentView
 
 @InjectViewState
-class DetailsFragmentPresenter : MvpPresenter<DetailsFragmentView>() {
+open class DetailsFragmentPresenter(private val repository: RecipeRepository)
+    : MvpPresenter<DetailsFragmentView>() {
 
-   private var repository: RecipeRepository = RecipeRepository(Retrofit.instance.getEdamamService())
+    //private var repository: RecipeRepository = RecipeRepository(Retrofit.instance.getEdamamService())
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

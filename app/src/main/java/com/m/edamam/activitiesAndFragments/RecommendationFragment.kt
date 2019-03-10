@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.m.edamam.R
 import com.m.edamam.Retrofit
 import com.m.edamam.pojo.Recipe
@@ -21,13 +22,17 @@ import kotlinx.android.synthetic.main.fragment_recommendation.view.*
 
 class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentView {
 
-    private  var id: String? = null
+    private var id: String? = null
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
     private var btnSearchClickListener: BtnSearchClickListener? = null
 
     @InjectPresenter
     lateinit var presenter: RecommendationFragmentPresenter
+
+    @ProvidePresenter
+    fun initPresenter(): RecommendationFragmentPresenter =
+            RecommendationFragmentPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
 
     companion object {
         @JvmStatic
@@ -39,7 +44,7 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
         val view = inflater.inflate(R.layout.fragment_recommendation, container, false)
         btnSearchClickListener = activity as MainActivity
 
-        view.btn_search_recipes.setOnClickListener{
+        view.btn_search_recipes.setOnClickListener {
             btnSearchClickListener?.onBtnSearchClicked()
         }
         return view
@@ -87,7 +92,7 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
         return netInfo != null && netInfo.isConnectedOrConnecting
     }
 
-    interface BtnSearchClickListener{
+    interface BtnSearchClickListener {
         fun onBtnSearchClicked()
     }
 }

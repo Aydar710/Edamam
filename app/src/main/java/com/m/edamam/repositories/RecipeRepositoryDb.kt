@@ -6,7 +6,7 @@ import com.m.edamam.database.RecipeDao
 import com.m.edamam.database.RecipeDb
 import com.m.edamam.pojo.Recipe
 
-class RecipeRepositoryDb(context: Context) {
+open class RecipeRepositoryDb(context: Context) {
 
     private var db: RecipeDao? = null
 
