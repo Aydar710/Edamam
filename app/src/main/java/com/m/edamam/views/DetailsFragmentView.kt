@@ -1,6 +1,7 @@
 package com.m.edamam.views
 
 import com.arellomobile.mvp.MvpView
+import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.m.edamam.pojo.Recipe
@@ -9,4 +10,6 @@ import com.m.edamam.pojo.Recipe
 interface DetailsFragmentView : MvpView {
     fun loadRecipeDetails()
     fun showRecipeDetails(recipe: Recipe)
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun handleError(error: Throwable)
 }
