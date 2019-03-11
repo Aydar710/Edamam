@@ -1,4 +1,4 @@
-package com.m.edamam.activitiesAndFragments
+package com.m.edamam.ui
 
 import android.content.Context
 import android.content.SharedPreferences

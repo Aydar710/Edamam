@@ -1,4 +1,4 @@
-package com.m.edamam.activitiesAndFragments
+package com.m.edamam.ui
 
 import android.app.Activity
 import android.app.Dialog

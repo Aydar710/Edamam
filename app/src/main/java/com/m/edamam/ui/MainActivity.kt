@@ -1,4 +1,4 @@
-package com.m.edamam.activitiesAndFragments
+package com.m.edamam.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

@@ -21,8 +21,10 @@ open class RecipeRepository( val api: EdamamApi) {
             api.getRecipesByName(query)
                     .subscribeOn(Schedulers.io())
                     .map {
-                        it.hits
+                        it.hits?: ArrayList(1)
                     }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
 
     open fun getRecipeById(query: String): Single<Recipe?> {
         return api
@@ -39,11 +41,11 @@ open class RecipeRepository( val api: EdamamApi) {
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getRecipesByName(query: String, currentPage: Int, pagSize : Int): Single<List<Hit>?> {
+    fun getRecipesByName(query: String, currentPage: Int, pagSize : Int): Single<List<Hit>> {
         return api.getRecipesByName(query,
                 from = "${pagSize * currentPage}", to = "${pagSize * (currentPage + 1)}")
                 .map {
-                    it.hits
+                    it.hits?:ArrayList(1)
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

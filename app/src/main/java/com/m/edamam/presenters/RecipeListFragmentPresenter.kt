@@ -17,13 +17,12 @@ open class RecipeListFragmentPresenter(private val repository: RecipeRepository)
     fun updateAdapter(query: String) {
         repository
                 .getRecipesByName(query)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
                             it?.let { list ->
-                                val mList: MutableList<Hit> = ArrayList()
-                                mList.addAll(list)
-                                viewState.submitListIntoAdapter(mList)
+//                                val mList: MutableList<Hit> = ArrayList()
+//                                mList.addAll(list)
+                                viewState.submitListIntoAdapter(list)
                             }
                         },
                         {
