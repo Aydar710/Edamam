@@ -13,7 +13,7 @@ open class DetailsFragmentPresenter(private val repository: RecipeRepository)
 
     //private var repository: RecipeRepository = RecipeRepository(Retrofit.instance.getEdamamService())
 
-    override fun onFirstViewAttach() {
+    override public fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.loadRecipeDetails()
     }

@@ -19,7 +19,6 @@ open class RecommendationFragmentPresenter(
         private var repository: RecipeRepository
 ) : MvpPresenter<RecommendationFragmentView>() {
 
-    //var repository: RecipeRepository = RecipeRepository(Retrofit.instance.getEdamamService())
     var listOfRecipeIds: ArrayList<String> = ArrayList()
 
     init {
