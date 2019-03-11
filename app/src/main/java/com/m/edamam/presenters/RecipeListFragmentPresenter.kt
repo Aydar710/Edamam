@@ -13,9 +13,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 open class RecipeListFragmentPresenter(private val repository: RecipeRepository)
     : MvpPresenter<RecipeListFragmentView>() {
 
-    //var repository: RecipeRepository = RecipeRepository(Retrofit.instance.getEdamamService())
-    var adapter: RecipeListAdapter = RecipeListAdapter()
-
     @SuppressLint("CheckResult")
     fun updateAdapter(query: String) {
         repository

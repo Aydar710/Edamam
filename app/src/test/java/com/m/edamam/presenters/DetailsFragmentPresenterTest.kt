@@ -6,7 +6,6 @@ import com.m.edamam.views.`DetailsFragmentView$$State`
 import io.reactivex.Single
 import org.junit.Test
 
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks

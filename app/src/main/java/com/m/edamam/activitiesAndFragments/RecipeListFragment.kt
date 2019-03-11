@@ -12,6 +12,7 @@ import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.m.edamam.R
+import com.m.edamam.RecipeListAdapter
 import com.m.edamam.Retrofit
 import com.m.edamam.constants.DEFAULT_PAGINATION_SIZE
 import com.m.edamam.constants.SPREF_PAG_SIZE
@@ -33,14 +34,16 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
 
     var queryText: String? = null
     var sPref: SharedPreferences? = null
+    lateinit var adapter: RecipeListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
         val rv = view.recycler_recipes
         val manager = LinearLayoutManager(activity)
         rv.layoutManager = manager
-        rv.adapter = presenter.adapter
-        presenter.adapter.listItemClickListener = activity as MainActivity
+        adapter = RecipeListAdapter()
+        adapter.listItemClickListener = activity as MainActivity
+        rv.adapter = adapter
 
         rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             private var currentPage: Int = 0
@@ -73,14 +76,14 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
     }
 
     override fun submitListIntoAdapter(list: List<Hit>) {
-        presenter.adapter.submitList(list as MutableList<Hit>)
+        adapter.submitList(list as MutableList<Hit>)
     }
 
     override fun addElementsToAdapter(list: List<Hit>) {
         val hitList: ArrayList<Hit> = ArrayList()
-        presenter.adapter.getList().let { hitList.addAll(it) }
+        adapter.getList().let { hitList.addAll(it) }
         hitList.addAll(list)
-        presenter.adapter.submitList(hitList)
+        adapter.submitList(hitList)
     }
 
     override fun onQueryTextChanged(query: String) {
