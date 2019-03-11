@@ -18,13 +18,10 @@ import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.coroutines.experimental.coroutineContext
 
 @RunWith(MockitoJUnitRunner::class)
 class RecipeListFragmentPresenterTest {
-
-    @InjectMocks
-    @Spy
-    private var presenter: RecipeListFragmentPresenter? = null
 
     @Mock
     private lateinit var mockRepository: RecipeRepository
@@ -32,11 +29,14 @@ class RecipeListFragmentPresenterTest {
     @Mock
     private lateinit var mockViewState: `RecipeListFragmentView$$State`
 
+    @InjectMocks
+    @Spy
+    private lateinit var presenter: RecipeListFragmentPresenter
+
     @Before
     fun setUp() {
-        presenter?.setViewState(mockViewState)
+        presenter.setViewState(mockViewState)
     }
-
 
     @Test
     fun updateAdapter() {
@@ -49,7 +49,7 @@ class RecipeListFragmentPresenterTest {
                 .`when`(mockRepository.getRecipesByName(RECIPE_ID_1))*/
 
         //Act
-        presenter?.updateAdapter(RECIPE_ID_1)
+        presenter.updateAdapter(RECIPE_ID_1)
 
         //Assert
         verify(mockViewState).submitListIntoAdapter(hitList)
@@ -58,17 +58,20 @@ class RecipeListFragmentPresenterTest {
     @Test
     fun loadNextElements() {
         //Arrange
+        val expectedPage = 2
+        val expectedQuery = "query"
+        val expectedPageSize = 5
         val hitList: List<Hit> = ArrayList()
-        //`when`(mockRepository.getRecipesByName(Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt()))
-        //        .thenReturn(Single.just(hitList))
+        `when`(mockRepository.getRecipesByName(expectedQuery, expectedPage, expectedPageSize))
+                .thenReturn(Single.just(hitList))
 
-        doReturn(Single.just(hitList))
-                .`when`(mockRepository.getRecipesByName(Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt()))
+//        doReturn(Single.just(hitList))
+//                .`when`(mockRepository.getRecipesByName(Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt()))
 
         //Act
-        presenter?.loadNextElements(Mockito.anyInt(), Mockito.anyString(), Mockito.anyInt())
+        presenter?.loadNextElements(expectedPage, expectedQuery, expectedPageSize)
 
         //Assert
-        verify(mockViewState).addElementsToAdapter(Mockito.anyList())
+        verify(mockViewState).addElementsToAdapter(hitList)
     }
 }

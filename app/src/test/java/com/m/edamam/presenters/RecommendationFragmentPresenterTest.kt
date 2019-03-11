@@ -19,15 +19,15 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class RecommendationFragmentPresenterTest {
 
-    @InjectMocks
-    @Spy
-    private var presenter: RecommendationFragmentPresenter? = null
-
     @Mock
     private lateinit var mockRepository: RecipeRepository
 
     @Mock
     private lateinit var mockViewState: `RecommendationFragmentView$$State`
+
+    @InjectMocks
+    @Spy
+    private lateinit var presenter: RecommendationFragmentPresenter
 
     @Before
     fun setUp() {
@@ -35,7 +35,7 @@ class RecommendationFragmentPresenterTest {
         // MockitoAnnotations.initMocks(this)
 
         //presenter = Mockito.spy(RecommendationFragmentPresenter::class.java)
-        presenter?.setViewState(mockViewState)
+        presenter.setViewState(mockViewState)
     }
 
     @Test
@@ -45,17 +45,18 @@ class RecommendationFragmentPresenterTest {
         //  doReturn(Single.just(Recipe())).`when`(mockRepository.getRecipeById(RECIPE_ID_1))
 
         //Проверить Mockito.anyString()
-        `when`(presenter?.getRandomRecipeIdFromList())
-                .thenReturn(RECIPE_ID_1)
+        val mockRecipe = mock(Recipe::class.java)
 
         `when`(mockRepository.getRecipeById(RECIPE_ID_1))
-                .thenReturn(Single.just(Recipe()))
-
+                .thenReturn(Single.just(mockRecipe))
+        `when`(presenter.getRandomRecipeIdFromList())
+                .thenReturn(RECIPE_ID_1)
+        
         //Act
         presenter?.getRecommendedRecipe()
 
         //Assert
-        verify(mockViewState).showRecommendedRecipe(Mockito.any())
+        verify(mockViewState).showRecommendedRecipe(mockRecipe)
     }
 
     @Test
