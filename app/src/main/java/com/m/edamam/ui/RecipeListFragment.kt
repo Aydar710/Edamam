@@ -34,7 +34,7 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
 
     var queryText: String? = null
     var sPref: SharedPreferences? = null
-    lateinit var adapter: RecipeListAdapter
+    var adapter: RecipeListAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
@@ -42,7 +42,7 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
         val manager = LinearLayoutManager(activity)
         rv.layoutManager = manager
         adapter = RecipeListAdapter()
-        adapter.listItemClickListener = activity as MainActivity
+        adapter?.listItemClickListener = activity as MainActivity
         rv.adapter = adapter
 
         rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -76,14 +76,14 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
     }
 
     override fun submitListIntoAdapter(list: List<Hit>) {
-        adapter.submitList(list as MutableList<Hit>)
+        adapter?.submitList(list as MutableList<Hit>)
     }
 
     override fun addElementsToAdapter(list: List<Hit>) {
         val hitList: ArrayList<Hit> = ArrayList()
-        adapter.getList().let { hitList.addAll(it) }
+        adapter?.getList()?.let { hitList.addAll(it) }
         hitList.addAll(list)
-        adapter.submitList(hitList)
+        adapter?.submitList(hitList)
     }
 
     override fun onQueryTextChanged(query: String) {

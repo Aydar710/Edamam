@@ -3,14 +3,11 @@ package com.m.edamam.presenters
 import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.m.edamam.MyApplication
-import com.m.edamam.Retrofit
 import com.m.edamam.constants.RECIPE_ID_1
 import com.m.edamam.constants.RECIPE_ID_2
 import com.m.edamam.constants.RECIPE_ID_3
 import com.m.edamam.constants.RECIPE_ID_4
 import com.m.edamam.repositories.RecipeRepository
-import com.m.edamam.repositories.RecipeRepositoryDb
 import com.m.edamam.views.RecommendationFragmentView
 import java.util.*
 

@@ -3,7 +3,6 @@ package com.m.edamam.presenters
 import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.m.edamam.Retrofit
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.DetailsFragmentView
 
@@ -11,9 +10,7 @@ import com.m.edamam.views.DetailsFragmentView
 open class DetailsFragmentPresenter(private val repository: RecipeRepository)
     : MvpPresenter<DetailsFragmentView>() {
 
-    //private var repository: RecipeRepository = RecipeRepository(Retrofit.instance.getEdamamService())
-
-    override public fun onFirstViewAttach() {
+    public override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.loadRecipeDetails()
     }
