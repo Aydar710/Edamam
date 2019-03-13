@@ -18,7 +18,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
-import kotlin.coroutines.experimental.coroutineContext
+import kotlin.coroutines.coroutineContext
 
 @RunWith(MockitoJUnitRunner::class)
 class RecipeListFragmentPresenterTest {
@@ -69,7 +69,7 @@ class RecipeListFragmentPresenterTest {
 //                .`when`(mockRepository.getRecipesByName(Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt()))
 
         //Act
-        presenter?.loadNextElements(expectedPage, expectedQuery, expectedPageSize)
+        presenter.loadNextElements(expectedPage, expectedQuery, expectedPageSize)
 
         //Assert
         verify(mockViewState).addElementsToAdapter(hitList)

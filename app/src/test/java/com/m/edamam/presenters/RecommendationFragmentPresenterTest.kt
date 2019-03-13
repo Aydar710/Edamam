@@ -51,7 +51,7 @@ class RecommendationFragmentPresenterTest {
                 .thenReturn(Single.just(mockRecipe))
         `when`(presenter.getRandomRecipeIdFromList())
                 .thenReturn(RECIPE_ID_1)
-        
+
         //Act
         presenter?.getRecommendedRecipe()
 
