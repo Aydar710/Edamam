@@ -3,11 +3,8 @@ package com.m.edamam.presenters
 import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.m.edamam.RecipeListAdapter
-import com.m.edamam.pojo.Hit
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecipeListFragmentView
-import io.reactivex.android.schedulers.AndroidSchedulers
 
 @InjectViewState
 open class RecipeListFragmentPresenter(private val repository: RecipeRepository)

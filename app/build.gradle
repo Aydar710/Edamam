@@ -89,6 +89,7 @@ dependencies {
     //Room viewer
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
-    testImplementation 'org.mockito:mockito-core:2.6.3'
-    androidTestImplementation 'org.mockito:mockito-android:2.6.3'
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:2.13.0"
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
 }

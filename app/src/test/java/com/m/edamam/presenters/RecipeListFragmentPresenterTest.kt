@@ -18,7 +18,6 @@ import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
-import kotlin.coroutines.coroutineContext
 
 @RunWith(MockitoJUnitRunner::class)
 class RecipeListFragmentPresenterTest {
@@ -45,9 +44,6 @@ class RecipeListFragmentPresenterTest {
         `when`(mockRepository.getRecipesByName(RECIPE_ID_1))
                 .thenReturn(Single.just(hitList))
 
-        /*doReturn(Single.just(hitList))
-                .`when`(mockRepository.getRecipesByName(RECIPE_ID_1))*/
-
         //Act
         presenter.updateAdapter(RECIPE_ID_1)
 
@@ -64,9 +60,6 @@ class RecipeListFragmentPresenterTest {
         val hitList: List<Hit> = ArrayList()
         `when`(mockRepository.getRecipesByName(expectedQuery, expectedPage, expectedPageSize))
                 .thenReturn(Single.just(hitList))
-
-//        doReturn(Single.just(hitList))
-//                .`when`(mockRepository.getRecipesByName(Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt()))
 
         //Act
         presenter.loadNextElements(expectedPage, expectedQuery, expectedPageSize)

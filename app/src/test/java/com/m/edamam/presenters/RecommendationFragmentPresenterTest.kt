@@ -31,36 +31,22 @@ class RecommendationFragmentPresenterTest {
 
     @Before
     fun setUp() {
-        //Или **@RunWith(MockitoJUnitRunner::class)**
-        // MockitoAnnotations.initMocks(this)
-
-        //presenter = Mockito.spy(RecommendationFragmentPresenter::class.java)
         presenter.setViewState(mockViewState)
     }
 
     @Test
     fun getRecommendedRecipe() {
         //Arrange
-        //??
-        //  doReturn(Single.just(Recipe())).`when`(mockRepository.getRecipeById(RECIPE_ID_1))
-
-        //Проверить Mockito.anyString()
-        val mockRecipe = mock(Recipe::class.java)
-
         `when`(mockRepository.getRecipeById(RECIPE_ID_1))
-                .thenReturn(Single.just(mockRecipe))
+                .thenReturn(Single.just(Recipe()))
         `when`(presenter.getRandomRecipeIdFromList())
                 .thenReturn(RECIPE_ID_1)
 
         //Act
-        presenter?.getRecommendedRecipe()
+        presenter.getRecommendedRecipe()
 
         //Assert
-        verify(mockViewState).showRecommendedRecipe(mockRecipe)
-    }
-
-    @Test
-    fun getRecommendedRecipeFromDB() {
+        verify(mockViewState).showRecommendedRecipe(Mockito.any())
     }
 
     @After

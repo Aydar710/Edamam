@@ -9,4 +9,5 @@ import com.m.edamam.pojo.Recipe
 interface DetailsFragmentView : MvpView {
     fun loadRecipeDetails()
     fun showRecipeDetails(recipe: Recipe)
+    fun handleError(error: Throwable)
 }
