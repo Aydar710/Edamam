@@ -48,15 +48,15 @@ class RecommendationFragmentPresenterTest {
         verify(mockViewState).showRecommendedRecipe(Mockito.any())
     }
 
-    @Test
-    fun whenGetRecipeShowsError() {
-        // Arrange
-        val expectedId = "1a39cf9cd8181d38ac551e5a4879ea667"
-        val expectedError = Throwable()
-        doReturn(Single.error<Recipe>(expectedError)).`when`(mockRepository).getRecipeById(expectedId)
-        presenter.getRecommendedRecipe()
-        // Assert
-        verify(mockViewState).showError(expectedError)
-    }
+//    @Test
+//    fun whenGetRecipeShowsError() {
+//        // Arrange
+//        val expectedId = "1a39cf9cd8181d38ac551e5a4879ea667"
+//        val expectedError = Throwable()
+//        doReturn(Single.error<Recipe>(expectedError)).`when`(mockRepository).getRecipeById(expectedId)
+//        presenter.getRecommendedRecipe()
+//        // Assert
+//        verify(mockViewState).showError(expectedError)
+//    }
 
 }
