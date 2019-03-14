@@ -12,7 +12,7 @@ import com.m.edamam.views.RecommendationFragmentView
 import java.util.*
 
 @InjectViewState
-class RecommendationFragmentPresenter(
+class RecommendationPresenter(
         private var repository: RecipeRepository
 ) : MvpPresenter<RecommendationFragmentView>() {
 

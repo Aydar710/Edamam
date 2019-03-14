@@ -7,7 +7,7 @@ import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecipeListFragmentView
 
 @InjectViewState
-class RecipeListFragmentPresenter(private val repository: RecipeRepository)
+class RecipeListPresenter(private val repository: RecipeRepository)
     : MvpPresenter<RecipeListFragmentView>() {
 
     @SuppressLint("CheckResult")

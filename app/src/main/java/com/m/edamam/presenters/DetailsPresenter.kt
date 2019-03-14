@@ -7,7 +7,7 @@ import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.DetailsFragmentView
 
 @InjectViewState
-class DetailsFragmentPresenter(private val repository: RecipeRepository)
+class DetailsPresenter(private val repository: RecipeRepository)
     : MvpPresenter<DetailsFragmentView>() {
 
     public override fun onFirstViewAttach() {

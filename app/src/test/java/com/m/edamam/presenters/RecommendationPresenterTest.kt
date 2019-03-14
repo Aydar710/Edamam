@@ -16,7 +16,7 @@ import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RecommendationFragmentPresenterTest {
+class RecommendationPresenterTest {
 
     @Mock
     private lateinit var mockRepository: RecipeRepository
@@ -26,7 +26,7 @@ class RecommendationFragmentPresenterTest {
 
     @InjectMocks
     @Spy
-    private lateinit var presenter: RecommendationFragmentPresenter
+    private lateinit var presenter: RecommendationPresenter
 
     @Before
     fun setUp() {

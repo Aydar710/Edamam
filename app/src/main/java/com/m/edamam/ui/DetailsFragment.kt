@@ -13,7 +13,7 @@ import com.m.edamam.R
 import com.m.edamam.Retrofit
 import com.m.edamam.constants.ARG_RECIPE_ID
 import com.m.edamam.pojo.Recipe
-import com.m.edamam.presenters.DetailsFragmentPresenter
+import com.m.edamam.presenters.DetailsPresenter
 import com.m.edamam.repositories.EdamamApi
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.DetailsFragmentView
@@ -27,11 +27,11 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
 
     @InjectPresenter
-    lateinit var presenter: DetailsFragmentPresenter
+    lateinit var presenter: DetailsPresenter
 
     @ProvidePresenter
-    fun initPresenter() : DetailsFragmentPresenter =
-            DetailsFragmentPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
+    fun initPresenter() : DetailsPresenter =
+            DetailsPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
 
     companion object {
         @JvmStatic

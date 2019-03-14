@@ -18,7 +18,7 @@ import com.m.edamam.constants.DEFAULT_PAGINATION_SIZE
 import com.m.edamam.constants.SPREF_PAG_SIZE
 import com.m.edamam.constants.TOTAL_ITEM_COUNT_MORE_THAN
 import com.m.edamam.pojo.Hit
-import com.m.edamam.presenters.RecipeListFragmentPresenter
+import com.m.edamam.presenters.RecipeListPresenter
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecipeListFragmentView
 import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
@@ -29,11 +29,11 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
     }
 
     @InjectPresenter
-    lateinit var presenter: RecipeListFragmentPresenter
+    lateinit var presenter: RecipeListPresenter
 
     @ProvidePresenter
-    fun initPresenter(): RecipeListFragmentPresenter =
-            RecipeListFragmentPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
+    fun initPresenter(): RecipeListPresenter =
+            RecipeListPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
 
     var queryText: String? = null
     var sPref: SharedPreferences? = null

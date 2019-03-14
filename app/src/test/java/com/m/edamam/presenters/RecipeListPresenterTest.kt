@@ -2,7 +2,6 @@ package com.m.edamam.presenters
 
 import com.m.edamam.constants.RECIPE_ID_1
 import com.m.edamam.pojo.Hit
-import com.m.edamam.pojo.Recipe
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.`RecipeListFragmentView$$State`
 import io.reactivex.Single
@@ -11,14 +10,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RecipeListFragmentPresenterTest {
+class RecipeListPresenterTest {
 
     @Mock
     private lateinit var mockRepository: RecipeRepository
@@ -28,7 +26,7 @@ class RecipeListFragmentPresenterTest {
 
     @InjectMocks
     @Spy
-    private lateinit var presenter: RecipeListFragmentPresenter
+    private lateinit var presenter: RecipeListPresenter
 
     @Before
     fun setUp() {

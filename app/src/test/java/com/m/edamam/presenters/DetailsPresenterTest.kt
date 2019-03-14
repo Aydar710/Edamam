@@ -1,6 +1,5 @@
 package com.m.edamam.presenters
 
-import com.m.edamam.Retrofit
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.DetailsFragmentView
@@ -16,7 +15,7 @@ import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class DetailsFragmentPresenterTest {
+class DetailsPresenterTest {
 
     @Mock
     private lateinit var repository: RecipeRepository
@@ -26,7 +25,7 @@ class DetailsFragmentPresenterTest {
 
     @InjectMocks
     @Spy
-    lateinit var presenter: DetailsFragmentPresenter
+    lateinit var presenter: DetailsPresenter
 
     @Before
     fun setUp() {

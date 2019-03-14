@@ -14,7 +14,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.m.edamam.R
 import com.m.edamam.Retrofit
 import com.m.edamam.pojo.Recipe
-import com.m.edamam.presenters.RecommendationFragmentPresenter
+import com.m.edamam.presenters.RecommendationPresenter
 import com.m.edamam.repositories.EdamamApi
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecommendationFragmentView
@@ -29,11 +29,11 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
     private var btnSearchClickListener: BtnSearchClickListener? = null
 
     @InjectPresenter
-    lateinit var presenter: RecommendationFragmentPresenter
+    lateinit var presenter: RecommendationPresenter
 
     @ProvidePresenter
-    fun initPresenter(): RecommendationFragmentPresenter =
-            RecommendationFragmentPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
+    fun initPresenter(): RecommendationPresenter =
+            RecommendationPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
 
     companion object {
         @JvmStatic
