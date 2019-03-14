@@ -23,7 +23,7 @@ open class DetailsFragmentPresenter(private val repository: RecipeRepository)
                             it?.let { it1 -> viewState.showRecipeDetails(it1) }
                         },
                         {
-                            it.printStackTrace()
+                            viewState.handleError(it)
                         }
                 )
     }

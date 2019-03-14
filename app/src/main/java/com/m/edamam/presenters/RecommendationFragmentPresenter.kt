@@ -1,6 +1,7 @@
 package com.m.edamam.presenters
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.m.edamam.constants.RECIPE_ID_1
@@ -35,7 +36,7 @@ open class RecommendationFragmentPresenter(
                     }
                 },
                         {
-                            it.printStackTrace()
+                            viewState.showError(it)
                         })
     }
 

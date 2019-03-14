@@ -24,6 +24,9 @@ import com.m.edamam.views.RecipeListFragmentView
 import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 
 class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainActivity.OnQueryTextListener {
+    override fun showError(error: Throwable) {
+        Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
+    }
 
     @InjectPresenter
     lateinit var presenter: RecipeListFragmentPresenter
@@ -90,10 +93,6 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
         Log.i("Tag", query)
         queryText = query
         updateAdapterByQueryResult(query)
-    }
-
-    override fun showError(error: String) {
-        Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
     }
 
     fun getPaginationSizeFromPreferences(): Int? {

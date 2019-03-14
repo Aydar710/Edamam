@@ -10,6 +10,6 @@ interface RecipeListFragmentView : MvpView {
     fun updateAdapterByQueryResult(query: String)
     fun submitListIntoAdapter(list: List<Hit>)
     fun addElementsToAdapter(list: List<Hit>)
-    fun showError(error : String)
+    fun showError(error: Throwable)
     //fun onItemClicked(recipe : Recipe)
 }

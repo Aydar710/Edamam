@@ -2,18 +2,17 @@ package com.m.edamam.presenters
 
 import com.m.edamam.constants.RECIPE_ID_1
 import com.m.edamam.pojo.Recipe
-import com.m.edamam.repositories.EdamamApi
 import com.m.edamam.repositories.RecipeRepository
-import com.m.edamam.repositories.RecipeRepositoryDb
 import com.m.edamam.views.`RecommendationFragmentView$$State`
 import io.reactivex.Single
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.*
-
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.Mockito.*
+import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -49,7 +48,15 @@ class RecommendationFragmentPresenterTest {
         verify(mockViewState).showRecommendedRecipe(Mockito.any())
     }
 
-    @After
-    fun tearDown() {
+    @Test
+    fun whenGetRecipeShowsError() {
+        // Arrange
+        val expectedId = "1a39cf9cd8181d38ac551e5a4879ea667"
+        val expectedError = Throwable()
+        doReturn(Single.error<Recipe>(expectedError)).`when`(mockRepository).getRecipeById(expectedId)
+        presenter.getRecommendedRecipe()
+        // Assert
+        verify(mockViewState).showError(expectedError)
     }
+
 }

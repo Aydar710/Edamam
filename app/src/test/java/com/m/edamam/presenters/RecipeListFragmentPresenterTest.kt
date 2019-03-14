@@ -1,21 +1,19 @@
 package com.m.edamam.presenters
 
-import com.m.edamam.RecipeListAdapter
 import com.m.edamam.constants.RECIPE_ID_1
 import com.m.edamam.pojo.Hit
+import com.m.edamam.pojo.Recipe
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.`RecipeListFragmentView$$State`
 import io.reactivex.Single
-import org.junit.Assert
-import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
 import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -52,6 +50,18 @@ class RecipeListFragmentPresenterTest {
     }
 
     @Test
+    fun whenUpdateAdapterShowsError() {
+        //Arrange
+        val expectedError = Throwable()
+        `when`(mockRepository.getRecipesByName(""))
+                .thenReturn(Single.error(expectedError))
+        //Act
+        presenter.updateAdapter("")
+        //Assert
+        verify(mockViewState).showError(expectedError)
+    }
+
+    @Test
     fun loadNextElements() {
         //Arrange
         val expectedPage = 2
@@ -66,5 +76,22 @@ class RecipeListFragmentPresenterTest {
 
         //Assert
         verify(mockViewState).addElementsToAdapter(hitList)
+    }
+
+    @Test
+    fun whenLoadNextElementsShowsError() {
+        //Arrange
+        val expectedPage = 2
+        val expectedQuery = "0"
+        val expectedPageSize = 5
+        val expectedError = Throwable()
+        `when`(mockRepository.getRecipesByName(expectedQuery, expectedPage, expectedPageSize))
+                .thenReturn(Single.error(expectedError))
+
+        //Act
+        presenter.loadNextElements(expectedPage, expectedQuery, expectedPageSize)
+
+        //Assert
+        verify(mockViewState).showError(expectedError)
     }
 }

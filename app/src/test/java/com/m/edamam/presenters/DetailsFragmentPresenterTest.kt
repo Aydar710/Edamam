@@ -6,13 +6,11 @@ import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.DetailsFragmentView
 import com.m.edamam.views.`DetailsFragmentView$$State`
 import io.reactivex.Single
-import org.junit.Test
-
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
@@ -59,7 +57,6 @@ class DetailsFragmentPresenterTest {
         // Arrange
         val expectedId = "1a39cf9cd8181d38ac551e5a4879ea667"
         val expectedError = Throwable()
-        val mockComics = mock(Recipe::class.java)
         doReturn(Single.error<Recipe>(expectedError)).`when`(repository).getRecipeById(expectedId)
         // Act
         presenter.getRecipeDetails(expectedId)

@@ -9,4 +9,5 @@ import com.m.edamam.pojo.Recipe
 interface RecommendationFragmentView : MvpView {
     fun getRecommendedRecipe()
     fun showRecommendedRecipe(recipe : Recipe)
+    fun showError(error: Throwable)
 }

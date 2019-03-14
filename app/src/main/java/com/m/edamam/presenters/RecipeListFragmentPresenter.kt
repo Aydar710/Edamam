@@ -23,7 +23,7 @@ open class RecipeListFragmentPresenter(private val repository: RecipeRepository)
                             }
                         },
                         {
-                            viewState.showError("Произошла ошибка при загрузке данных")
+                            viewState.showError(it)
                         }
                 )
     }
@@ -37,7 +37,7 @@ open class RecipeListFragmentPresenter(private val repository: RecipeRepository)
                     }
                 },
                         {
-                            it.printStackTrace()
+                            viewState.showError(it)
                         })
     }
 }
