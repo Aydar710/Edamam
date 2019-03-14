@@ -7,7 +7,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-open class RecipeRepository( val api: EdamamApi) {
+class RecipeRepository( val api: EdamamApi) {
 
     private var repositoryDb: RecipeRepositoryDb? = null
 
@@ -26,7 +26,7 @@ open class RecipeRepository( val api: EdamamApi) {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
 
-    open fun getRecipeById(query: String): Single<Recipe?> {
+    fun getRecipeById(query: String): Single<Recipe?> {
         return api
                 .getRecipeById(query)
                 .map {

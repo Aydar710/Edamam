@@ -1,7 +1,6 @@
 package com.m.edamam.presenters
 
 import android.annotation.SuppressLint
-import android.widget.Toast
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.m.edamam.constants.RECIPE_ID_1
@@ -13,7 +12,7 @@ import com.m.edamam.views.RecommendationFragmentView
 import java.util.*
 
 @InjectViewState
-open class RecommendationFragmentPresenter(
+class RecommendationFragmentPresenter(
         private var repository: RecipeRepository
 ) : MvpPresenter<RecommendationFragmentView>() {
 
@@ -29,23 +28,20 @@ open class RecommendationFragmentPresenter(
 
     @SuppressLint("CheckResult")
     fun getRecommendedRecipe() {
-        repository.getRecipeById(getRandomRecipeIdFromList())
-                .subscribe({
-                    it?.let {
-                        viewState.showRecommendedRecipe(it)
-                    }
-                },
-                        {
-                            viewState.showError(it)
-                        })
+        repository
+                .getRecipeById(getRandomRecipeIdFromList())
+                .subscribe(
+                        { it?.let(viewState::showRecommendedRecipe) },
+                        viewState::showError
+                )
     }
 
     /*fun getRecommendedRecipeFromDB() {
         repositoryDb?.getRecommendedRecipe()
     }*/
 
-    open fun getRandomRecipeIdFromList(): String {
-        val random: Random = Random()
+    fun getRandomRecipeIdFromList(): String {
+        val random = Random()
         val randomInt = random.nextInt(listOfRecipeIds.size)
         return listOfRecipeIds[randomInt]
     }

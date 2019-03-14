@@ -7,7 +7,7 @@ import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.DetailsFragmentView
 
 @InjectViewState
-open class DetailsFragmentPresenter(private val repository: RecipeRepository)
+class DetailsFragmentPresenter(private val repository: RecipeRepository)
     : MvpPresenter<DetailsFragmentView>() {
 
     public override fun onFirstViewAttach() {
@@ -19,12 +19,8 @@ open class DetailsFragmentPresenter(private val repository: RecipeRepository)
     fun getRecipeDetails(id: String) {
         repository.getRecipeById(id)
                 .subscribe(
-                        {
-                            it?.let { it1 -> viewState.showRecipeDetails(it1) }
-                        },
-                        {
-                            viewState.handleError(it)
-                        }
+                        { it?.let(viewState::showRecipeDetails) },
+                        viewState::handleError
                 )
     }
 }

@@ -19,7 +19,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class DetailsFragmentPresenterTest {
 
     @Mock
-    private var repository: RecipeRepository = RecipeRepository(Retrofit.instance.getEdamamService())
+    private lateinit var repository: RecipeRepository
 
     @Mock
     lateinit var mockViewState: `DetailsFragmentView$$State`

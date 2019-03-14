@@ -58,5 +58,4 @@ class RecommendationFragmentPresenterTest {
 //        // Assert
 //        verify(mockViewState).showError(expectedError)
 //    }
-
 }

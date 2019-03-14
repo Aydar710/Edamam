@@ -1,28 +1,25 @@
 package com.m.edamam.ui
 
-import android.support.v7.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import com.facebook.stetho.Stetho
 import com.m.edamam.R
 import com.m.edamam.RecipeListAdapter
-import com.m.edamam.pojo.Recipe
-import kotlinx.android.synthetic.main.activity_main.*
-import android.content.SharedPreferences
-import android.content.Context
-import android.util.Log
-import com.amitshekhar.DebugDB
 import com.m.edamam.constants.SPREF_PAG_SIZE
 import com.m.edamam.constants.TEST_RECIPE_ID
+import com.m.edamam.pojo.Recipe
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListener,
         PaginationSizeFragmentDialog.PaginationSizeDialogListener,
         RecommendationFragment.BtnSearchClickListener {
 
     var listener: OnQueryTextListener? = null
-    var sPref: SharedPreferences? = null
+//    var sPref: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +27,6 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         setSupportActionBar(toolbar)
 
         Stetho.initializeWithDefaults(this)
-        Log.i("db", DebugDB.getAddressLog())
 
         //doRecipeListTransaction()
         doRecommendationFragmentTransaction()
@@ -74,10 +70,10 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
     }
 
     override fun setPaginationSize(size: Int) {
-        /*sPref = getPreferences(Context.MODE_PRIVATE)
-        val ed = sPref?.edit()
-        ed?.putInt(SPREF_PAG_SIZE, size)
-        ed?.apply()*/
+//        sPref = getPreferences(Context.MODE_PRIVATE)
+//        val ed = sPref?.edit()
+//        ed?.putInt(SPREF_PAG_SIZE, size)
+//        ed?.apply()
         getPreferences(Context.MODE_PRIVATE)?.apply {
             edit()
                     .putInt(SPREF_PAG_SIZE, size)
@@ -90,7 +86,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
     }
 
     private fun openDialog() {
-        var dialog: PaginationSizeFragmentDialog = PaginationSizeFragmentDialog()
+        val dialog: PaginationSizeFragmentDialog = PaginationSizeFragmentDialog()
         dialog.show(supportFragmentManager, "dialog")
     }
 

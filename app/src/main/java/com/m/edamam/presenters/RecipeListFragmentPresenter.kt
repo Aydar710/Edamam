@@ -7,7 +7,7 @@ import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecipeListFragmentView
 
 @InjectViewState
-open class RecipeListFragmentPresenter(private val repository: RecipeRepository)
+class RecipeListFragmentPresenter(private val repository: RecipeRepository)
     : MvpPresenter<RecipeListFragmentView>() {
 
     @SuppressLint("CheckResult")
@@ -15,29 +15,18 @@ open class RecipeListFragmentPresenter(private val repository: RecipeRepository)
         repository
                 .getRecipesByName(query)
                 .subscribe(
-                        {
-                            it?.let { list ->
-//                                val mList: MutableList<Hit> = ArrayList()
-//                                mList.addAll(list)
-                                viewState.submitListIntoAdapter(list)
-                            }
-                        },
-                        {
-                            viewState.showError(it)
-                        }
+                        { it?.let(viewState::submitListIntoAdapter) },
+                        viewState::showError
                 )
     }
 
     @SuppressLint("CheckResult")
     fun loadNextElements(currentPage: Int, query: String, pagSise: Int) {
-        repository.getRecipesByName(query = query, currentPage = currentPage, pagSize = pagSise)
-                .subscribe({
-                    it?.let { it1 ->
-                        viewState.addElementsToAdapter(it1)
-                    }
-                },
-                        {
-                            viewState.showError(it)
-                        })
+        repository
+                .getRecipesByName(query = query, currentPage = currentPage, pagSize = pagSise)
+                .subscribe(
+                        { it?.let(viewState::addElementsToAdapter) },
+                        viewState::showError
+                )
     }
 }
