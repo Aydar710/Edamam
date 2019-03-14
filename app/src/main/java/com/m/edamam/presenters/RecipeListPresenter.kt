@@ -21,9 +21,9 @@ class RecipeListPresenter(private val repository: RecipeRepository)
     }
 
     @SuppressLint("CheckResult")
-    fun loadNextElements(currentPage: Int, query: String, pagSise: Int) {
+    fun loadNextElements(currentPage: Int, query: String, pageSize: Int) {
         repository
-                .getRecipesByName(query = query, currentPage = currentPage, pagSize = pagSise)
+                .getRecipesByName(query = query, currentPage = currentPage, pagSize = pageSize)
                 .subscribe(
                         { it?.let(viewState::addElementsToAdapter) },
                         viewState::showError
