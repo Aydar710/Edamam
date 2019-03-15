@@ -1,6 +1,7 @@
 package com.m.edamam.ui
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +19,12 @@ import com.m.edamam.repositories.EdamamApi
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.DetailsFragmentView
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_details.view.*
 
 class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
 
-    private  var id: String? = null
+    private var id: String? = null
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
 
@@ -30,7 +32,7 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
     lateinit var presenter: DetailsPresenter
 
     @ProvidePresenter
-    fun initPresenter() : DetailsPresenter =
+    fun initPresenter(): DetailsPresenter =
             DetailsPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
 
     companion object {
@@ -68,7 +70,6 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
                 .into(view?.img_recipe_details)
     }
 
-    override fun handleError(error: Throwable) {
-        Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
-    }
+    override fun handleError(error: Throwable) =
+            Snackbar.make(txt_label, "error", 1).show()
 }
