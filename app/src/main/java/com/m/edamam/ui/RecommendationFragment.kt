@@ -1,4 +1,4 @@
-package com.m.edamam.activitiesAndFragments
+package com.m.edamam.ui
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -7,12 +7,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.m.edamam.R
 import com.m.edamam.Retrofit
 import com.m.edamam.pojo.Recipe
-import com.m.edamam.presenters.RecommendationFragmentPresenter
+import com.m.edamam.presenters.RecommendationPresenter
 import com.m.edamam.repositories.EdamamApi
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecommendationFragmentView
@@ -21,13 +23,17 @@ import kotlinx.android.synthetic.main.fragment_recommendation.view.*
 
 class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentView {
 
-    private  var id: String? = null
+    private var id: String? = null
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
     private var btnSearchClickListener: BtnSearchClickListener? = null
 
     @InjectPresenter
-    lateinit var presenter: RecommendationFragmentPresenter
+    lateinit var presenter: RecommendationPresenter
+
+    @ProvidePresenter
+    fun initPresenter(): RecommendationPresenter =
+            RecommendationPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
 
     companion object {
         @JvmStatic
@@ -39,7 +45,7 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
         val view = inflater.inflate(R.layout.fragment_recommendation, container, false)
         btnSearchClickListener = activity as MainActivity
 
-        view.btn_search_recipes.setOnClickListener{
+        view.btn_search_recipes.setOnClickListener {
             btnSearchClickListener?.onBtnSearchClicked()
         }
         return view
@@ -87,7 +93,12 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
         return netInfo != null && netInfo.isConnectedOrConnecting
     }
 
-    interface BtnSearchClickListener{
+    interface BtnSearchClickListener {
         fun onBtnSearchClicked()
+    }
+
+
+    override fun showError(error: Throwable) {
+        Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
     }
 }

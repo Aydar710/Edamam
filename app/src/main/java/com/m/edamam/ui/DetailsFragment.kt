@@ -1,31 +1,37 @@
-package com.m.edamam.activitiesAndFragments
+package com.m.edamam.ui
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
-
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.m.edamam.R
 import com.m.edamam.Retrofit
 import com.m.edamam.constants.ARG_RECIPE_ID
 import com.m.edamam.pojo.Recipe
-import com.m.edamam.presenters.DetailsFragmentPresenter
+import com.m.edamam.presenters.DetailsPresenter
 import com.m.edamam.repositories.EdamamApi
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.DetailsFragmentView
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_details.view.*
 
 class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
 
-    private  var id: String? = null
+    private var id: String? = null
     private var api: EdamamApi = Retrofit.instance.getEdamamService()
     private var recipeRepository: RecipeRepository = RecipeRepository(api)
 
     @InjectPresenter
-    lateinit var presenter: DetailsFragmentPresenter
+    lateinit var presenter: DetailsPresenter
+
+    @ProvidePresenter
+    fun initPresenter(): DetailsPresenter =
+            DetailsPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
 
     companion object {
         @JvmStatic
@@ -61,4 +67,7 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
                 .load(recipe.image)
                 .into(view?.img_recipe_details)
     }
+
+    override fun handleError(error: Throwable) =
+            Snackbar.make(txt_label, "error", 1).show()
 }

@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.card_recipe.*
 
-class RecipeListAdapter : ListAdapter<Hit, RecipeListAdapter.RecipeHolder>(HitDiffCallback()) {
+open class RecipeListAdapter : ListAdapter<Hit, RecipeListAdapter.RecipeHolder>(HitDiffCallback()) {
 
     var listItemClickListener: ListItemClickListener? = null
     var hitList: ArrayList<Hit>? = null
