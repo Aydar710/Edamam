@@ -12,6 +12,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.m.edamam.R
 import com.m.edamam.Retrofit
+import com.m.edamam.di.component.DaggerPresenterComponent
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.presenters.RecommendationFragmentPresenter
 import com.m.edamam.repositories.EdamamApi
@@ -23,8 +24,6 @@ import kotlinx.android.synthetic.main.fragment_recommendation.view.*
 class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentView {
 
     private var id: String? = null
-    private var api: EdamamApi = Retrofit.instance.getEdamamService()
-    private var recipeRepository: RecipeRepository = RecipeRepository(api)
     private var btnSearchClickListener: BtnSearchClickListener? = null
 
     @InjectPresenter
@@ -32,7 +31,8 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
 
     @ProvidePresenter
     fun initPresenter(): RecommendationFragmentPresenter =
-            RecommendationFragmentPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
+            DaggerPresenterComponent.create()
+                    .getRecommendationFragmentPresenter()
 
     companion object {
         @JvmStatic

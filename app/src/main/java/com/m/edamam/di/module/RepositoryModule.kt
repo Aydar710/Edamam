@@ -5,7 +5,7 @@ import com.m.edamam.repositories.RecipeRepository
 import dagger.Module
 import dagger.Provides
 
-@Module
+@Module(includes = [ServiceModule::class])
 class RepositoryModule {
 
     @Provides
