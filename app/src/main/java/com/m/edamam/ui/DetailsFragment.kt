@@ -12,6 +12,8 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.m.edamam.R
 import com.m.edamam.Retrofit
 import com.m.edamam.constants.ARG_RECIPE_ID
+import com.m.edamam.di.component.DaggerPresenterComponent
+import com.m.edamam.di.component.PresenterComponent
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.presenters.DetailsFragmentPresenter
 import com.m.edamam.repositories.EdamamApi
@@ -23,15 +25,15 @@ import kotlinx.android.synthetic.main.fragment_details.view.*
 class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
 
     private  var id: String? = null
-    private var api: EdamamApi = Retrofit.instance.getEdamamService()
-    private var recipeRepository: RecipeRepository = RecipeRepository(api)
 
     @InjectPresenter
     lateinit var presenter: DetailsFragmentPresenter
 
     @ProvidePresenter
-    fun initPresenter() : DetailsFragmentPresenter =
-            DetailsFragmentPresenter(RecipeRepository(Retrofit.instance.getEdamamService()))
+    fun initPresenter() : DetailsFragmentPresenter {
+        val component : PresenterComponent = DaggerPresenterComponent.create()
+        return component.getDetailsFragmentPresenter()
+    }
 
     companion object {
         @JvmStatic
