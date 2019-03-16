@@ -24,7 +24,7 @@ class PaginationSizeFragmentDialog : AppCompatDialogFragment() {
                 .setView(view)
                 .setTitle("Pagination Size")
                 .setNegativeButton("Cancel") { dialog, which ->
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    TODO("not implemented")
                 }
                 .setPositiveButton("Ok") { dialog, which ->
                     val size: String = etPaginationSize?.text.toString()

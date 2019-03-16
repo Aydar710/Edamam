@@ -40,7 +40,7 @@ open class RecipeListAdapter : ListAdapter<Hit, RecipeListAdapter.RecipeHolder>(
     }
 
     fun getList(): ArrayList<Hit> {
-        var hitList: ArrayList<Hit> = ArrayList()
+        val hitList: ArrayList<Hit> = ArrayList()
         for (i in 0 until itemCount) {
             hitList.add(getItem(i))
         }

@@ -16,6 +16,7 @@ import com.m.edamam.RecipeListAdapter
 import com.m.edamam.constants.DEFAULT_PAGINATION_SIZE
 import com.m.edamam.constants.SPREF_PAG_SIZE
 import com.m.edamam.constants.TOTAL_ITEM_COUNT_MORE_THAN
+import com.m.edamam.di.component.DaggerAdapterComponent
 import com.m.edamam.di.component.PresenterComponent
 import com.m.edamam.di.component.DaggerPresenterComponent
 import com.m.edamam.di.module.NetModule
@@ -46,7 +47,7 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
         val rv = view.recycler_recipes
         val manager = LinearLayoutManager(activity)
         rv.layoutManager = manager
-        adapter = RecipeListAdapter()
+        adapter = DaggerAdapterComponent.create().getRecipeListAdapter()
         adapter?.listItemClickListener = activity as MainActivity
         rv.adapter = adapter
 
