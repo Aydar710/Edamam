@@ -1,18 +1,18 @@
 package com.m.edamam.repositories
 
-import com.m.edamam.MyApplication
+import com.m.edamam.App
 import com.m.edamam.pojo.Hit
 import com.m.edamam.pojo.Recipe
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-open class RecipeRepository( val api: EdamamApi) {
+open class RecipeRepository(val api: EdamamApi) {
 
     private var repositoryDb: RecipeRepositoryDb? = null
 
     init {
-        MyApplication.context?.let {
+        App.context?.let {
             repositoryDb = RecipeRepositoryDb(it)
         }
     }

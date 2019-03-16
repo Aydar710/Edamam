@@ -1,7 +1,7 @@
 package com.m.edamam.repositories
 
 import android.content.Context
-import com.m.edamam.MyApplication
+import com.m.edamam.App
 import com.m.edamam.database.RecipeDao
 import com.m.edamam.database.RecipeDb
 import com.m.edamam.pojo.Recipe
@@ -11,7 +11,7 @@ open class RecipeRepositoryDb(context: Context) {
     private var db: RecipeDao? = null
 
     init {
-        MyApplication.context?.let {
+        App.context?.let {
             RecipeDb.getInstance(it).getRecipeDao()
         }
     }
