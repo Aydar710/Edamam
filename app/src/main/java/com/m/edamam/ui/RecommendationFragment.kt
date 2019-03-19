@@ -11,12 +11,9 @@ import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.m.edamam.R
-import com.m.edamam.Retrofit
 import com.m.edamam.di.component.DaggerPresenterComponent
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.presenters.RecommendationFragmentPresenter
-import com.m.edamam.repositories.EdamamApi
-import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecommendationFragmentView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_recommendation.view.*
