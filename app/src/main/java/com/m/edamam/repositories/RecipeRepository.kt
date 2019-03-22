@@ -1,6 +1,5 @@
 package com.m.edamam.repositories
 
-import com.m.edamam.App
 import com.m.edamam.pojo.Hit
 import com.m.edamam.pojo.Recipe
 import io.reactivex.Single
@@ -8,14 +7,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 open class RecipeRepository(val api: EdamamApi, private var repositoryDb: RecipeRepositoryDb) {
-
-    //private var repositoryDb: RecipeRepositoryDb? = null
-
-//    init {
-//        App.context?.let {
-//            repositoryDb = RecipeRepositoryDb(it)
-//        }
-//    }
 
     fun getRecipesByName(query: String): Single<List<Hit>> =
             api.getRecipesByName(query)
@@ -33,8 +24,8 @@ open class RecipeRepository(val api: EdamamApi, private var repositoryDb: Recipe
                     it.hits?.get(0)?.recipe
                 }
                 .map {
-                    repositoryDb?.clear()
-                    repositoryDb?.save(it)
+                    repositoryDb.clear()
+                    repositoryDb.save(it)
                     it
                 }
                 .subscribeOn(Schedulers.io())

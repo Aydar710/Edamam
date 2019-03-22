@@ -2,8 +2,8 @@ package com.m.edamam.di.module
 
 import android.arch.persistence.room.Room
 import android.content.Context
+import com.m.edamam.constants.DATABSE_NAME
 import com.m.edamam.database.RecipeDb
-import com.m.edamam.di.module.RoomDbModule.Companion.NAME_DB
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
@@ -15,7 +15,7 @@ class RoomDbModule {
     @Provides
     @Named(NAME_DB)
     @Singleton
-    fun provideDbName(): String = "mDatabse.db"
+    fun provideDbName(): String = DATABSE_NAME
 
     @Provides
     @Singleton

@@ -15,3 +15,5 @@ const val RECIPE_ID_1 = "1a39cf9cd8181d38ac551e5a4879ea66"
 const val RECIPE_ID_2 = "bbafa625a135b8c7c1b63e15d839f0e4"
 const val RECIPE_ID_3 = "d9dd328cb9c587265743511df941fa4f"
 const val RECIPE_ID_4 = "1a8963d37a6edc728a2e2e0754b505cf"
+
+const val DATABSE_NAME = "mDatabse.db"
