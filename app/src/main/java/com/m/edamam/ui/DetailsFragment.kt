@@ -13,6 +13,7 @@ import com.m.edamam.R
 import com.m.edamam.constants.ARG_RECIPE_ID
 import com.m.edamam.di.component.DaggerPresenterComponent
 import com.m.edamam.di.component.PresenterComponent
+import com.m.edamam.di.module.AppModule
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.presenters.DetailsFragmentPresenter
 import com.m.edamam.views.DetailsFragmentView
@@ -28,7 +29,9 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
 
     @ProvidePresenter
     fun initPresenter() : DetailsFragmentPresenter {
-        val component : PresenterComponent = DaggerPresenterComponent.create()
+        val component : PresenterComponent = DaggerPresenterComponent.builder()
+                .appModule(activity?.let { AppModule(it) })
+                .build()
         return component.getDetailsFragmentPresenter()
     }
 

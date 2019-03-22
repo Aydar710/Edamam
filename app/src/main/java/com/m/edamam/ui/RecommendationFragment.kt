@@ -12,6 +12,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.m.edamam.R
 import com.m.edamam.di.component.DaggerPresenterComponent
+import com.m.edamam.di.component.PresenterComponent
+import com.m.edamam.di.module.AppModule
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.presenters.RecommendationFragmentPresenter
 import com.m.edamam.views.RecommendationFragmentView
@@ -27,9 +29,12 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
     lateinit var presenter: RecommendationFragmentPresenter
 
     @ProvidePresenter
-    fun initPresenter(): RecommendationFragmentPresenter =
-            DaggerPresenterComponent.create()
-                    .getRecommendationFragmentPresenter()
+    fun initPresenter(): RecommendationFragmentPresenter {
+        val component : PresenterComponent = DaggerPresenterComponent.builder()
+                .appModule(activity?.let { AppModule(it) })
+                .build()
+        return component.getRecommendationFragmentPresenter()
+    }
 
     companion object {
         @JvmStatic

@@ -7,15 +7,15 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-open class RecipeRepository(val api: EdamamApi) {
+open class RecipeRepository(val api: EdamamApi, private var repositoryDb: RecipeRepositoryDb) {
 
-    private var repositoryDb: RecipeRepositoryDb? = null
+    //private var repositoryDb: RecipeRepositoryDb? = null
 
-    init {
-        App.context?.let {
-            repositoryDb = RecipeRepositoryDb(it)
-        }
-    }
+//    init {
+//        App.context?.let {
+//            repositoryDb = RecipeRepositoryDb(it)
+//        }
+//    }
 
     fun getRecipesByName(query: String): Single<List<Hit>> =
             api.getRecipesByName(query)

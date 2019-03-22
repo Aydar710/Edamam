@@ -12,16 +12,4 @@ import com.m.edamam.pojo.Recipe
 abstract class RecipeDb : RoomDatabase() {
 
     abstract fun getRecipeDao(): RecipeDao
-
-    companion object {
-        private val DATABASE_NAME = "mDatabse.db"
-        private var dbInstance: RecipeDb? = null
-        fun getInstance(context : Context): RecipeDb {
-            if(dbInstance == null){
-                dbInstance = Room.databaseBuilder(context,
-                        RecipeDb::class.java, DATABASE_NAME).build()
-            }
-            return dbInstance as RecipeDb
-        }
-    }
 }

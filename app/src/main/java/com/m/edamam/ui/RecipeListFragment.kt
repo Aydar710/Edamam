@@ -19,6 +19,7 @@ import com.m.edamam.constants.TOTAL_ITEM_COUNT_MORE_THAN
 import com.m.edamam.di.component.DaggerAdapterComponent
 import com.m.edamam.di.component.PresenterComponent
 import com.m.edamam.di.component.DaggerPresenterComponent
+import com.m.edamam.di.module.AppModule
 import com.m.edamam.pojo.Hit
 import com.m.edamam.presenters.RecipeListFragmentPresenter
 import com.m.edamam.views.RecipeListFragmentView
@@ -31,7 +32,9 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
 
     @ProvidePresenter
     fun initPresenter(): RecipeListFragmentPresenter {
-        val component: PresenterComponent = DaggerPresenterComponent.create()
+        val component: PresenterComponent = DaggerPresenterComponent.builder()
+                .appModule(activity?.let { AppModule(it) })
+                .build()
         return component.getRecipeListFragmentPresenter()
     }
 
