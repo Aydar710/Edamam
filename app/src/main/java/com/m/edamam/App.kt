@@ -11,16 +11,16 @@ class App : Application() {
 
     companion object {
         @SuppressLint("StaticFieldLeak")
-         var context: Context? = null
+        var context: Context? = null
 
-        lateinit var navComponent: PresenterComponent
+        lateinit var presenterComponent: PresenterComponent
     }
 
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
 
-       navComponent = DaggerPresenterComponent.builder()
+        presenterComponent = DaggerPresenterComponent.builder()
                 .appModule(AppModule(this))
                 .build()
     }

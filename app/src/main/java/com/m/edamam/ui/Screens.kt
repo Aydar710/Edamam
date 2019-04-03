@@ -6,15 +6,24 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 class Screens {
 
     class RecommendationScreen : SupportAppScreen() {
+
         override fun getFragment(): Fragment =
                 RecommendationFragment.newInstance()
     }
 
     class DetailsScreen(val recipeId: String) : SupportAppScreen() {
+
         override fun getFragment(): Fragment =
                 DetailsFragment.newInstance(recipeId)
-
-
     }
 
+    class RecipeListScreen : SupportAppScreen() {
+
+        override fun getFragment(): Fragment {
+            val fragment : RecipeListFragment by lazy {
+                RecipeListFragment()
+            }
+            return fragment
+        }
+    }
 }

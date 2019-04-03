@@ -1,6 +1,5 @@
 package com.m.edamam.ui
 
-import android.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.SearchView
@@ -8,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import com.facebook.stetho.Stetho
 import com.m.edamam.R
-import com.m.edamam.RecipeListAdapter
 import com.m.edamam.pojo.Recipe
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.SharedPreferences
@@ -18,16 +16,9 @@ import com.amitshekhar.DebugDB
 import com.m.edamam.App
 import com.m.edamam.constants.SPREF_PAG_SIZE
 import com.m.edamam.constants.TEST_RECIPE_ID
-import com.m.edamam.di.component.DaggerNavigationComponent
-import com.m.edamam.di.component.DaggerPresenterComponent
-import com.m.edamam.di.component.PresenterComponent
-import com.m.edamam.di.module.AppModule
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.android.pure.AppNavigator
-import ru.terrakok.cicerone.android.pure.AppScreen
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
-import ru.terrakok.cicerone.android.support.SupportAppScreen
 import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Replace
 
@@ -36,7 +27,10 @@ class MainActivity : AppCompatActivity(),
         PaginationSizeFragmentDialog.PaginationSizeDialogListener,
         RecommendationFragment.BtnSearchClickListener {
 
-    var listener: OnQueryTextListener? = null
+    companion object {
+
+        var listener: OnQueryTextListener? = null
+    }
     var sPref: SharedPreferences? = null
     private var navigatorHolder: NavigatorHolder? = null
     private lateinit var navigator: Navigator
@@ -49,21 +43,7 @@ class MainActivity : AppCompatActivity(),
         Stetho.initializeWithDefaults(this)
         Log.i("db", DebugDB.getAddressLog())
 
-        navigatorHolder = App.navComponent.getNavigatorHolder()
-
-//        navigator = object : SupportAppNavigator(this, R.id.container_main) {
-//
-//            override fun applyCommands(commands: Array<Command>) {
-//                super.applyCommands(commands)
-//                supportFragmentManager.executePendingTransactions()
-//            }
-//
-//            override fun createFragment(screen: SupportAppScreen?): android.support.v4.app.Fragment {
-//                return super.createFragment(screen)
-//
-//
-//            }
-//        }
+        navigatorHolder = App.presenterComponent.getNavigatorHolder()
 
         navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container_main)
 
@@ -118,11 +98,6 @@ class MainActivity : AppCompatActivity(),
         super.onPause()
     }
 
-    /*override fun onClick(recipe: Recipe) {
-        val recipeId = getRecipeId(recipe)
-        //doRecipeDetailsFragmentTransaction(recipeId)
-    }*/
-
     override fun setPaginationSize(size: Int) {
         /*sPref = getPreferences(Context.MODE_PRIVATE)
         val ed = sPref?.edit()
@@ -136,37 +111,12 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onBtnSearchClicked() {
-        doRecipeListTransaction()
+        navigator.applyCommands(arrayOf<Command>(Replace(Screens.RecipeListScreen())))
     }
 
     private fun openDialog() {
         var dialog: PaginationSizeFragmentDialog = PaginationSizeFragmentDialog()
         dialog.show(supportFragmentManager, "dialog")
-    }
-
-    private fun doRecipeListTransaction() {
-        val fragmentManager = supportFragmentManager
-        val fragment = RecipeListFragment()
-        listener = fragment
-        fragmentManager.beginTransaction()
-                .replace(R.id.container_main, fragment)
-                .commit()
-    }
-
-    private fun doRecipeDetailsFragmentTransaction(recipeId: String) {
-        val fragmentManager = supportFragmentManager
-        val fragment = DetailsFragment.newInstance(recipeId)
-        fragmentManager.beginTransaction()
-                .replace(R.id.container_main, fragment)
-                .commit()
-    }
-
-    private fun doRecommendationFragmentTransaction() {
-        val fragmentManager = supportFragmentManager
-        val fragment = RecommendationFragment.newInstance()
-        fragmentManager.beginTransaction()
-                .replace(R.id.container_main, fragment)
-                .commit()
     }
 
     fun getRecipeId(recipe: Recipe): String =
