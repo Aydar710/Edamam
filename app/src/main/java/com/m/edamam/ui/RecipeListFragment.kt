@@ -1,11 +1,8 @@
 package com.m.edamam.ui
 
-import android.app.ActionBar
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -21,12 +18,10 @@ import com.m.edamam.constants.DEFAULT_PAGINATION_SIZE
 import com.m.edamam.constants.SPREF_PAG_SIZE
 import com.m.edamam.constants.TOTAL_ITEM_COUNT_MORE_THAN
 import com.m.edamam.di.component.DaggerAdapterComponent
-import com.m.edamam.di.component.PresenterComponent
 import com.m.edamam.pojo.Hit
 import com.m.edamam.pojo.Recipe
 import com.m.edamam.presenters.RecipeListFragmentPresenter
 import com.m.edamam.views.RecipeListFragmentView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 import javax.inject.Inject
 
@@ -39,16 +34,14 @@ RecipeListAdapter.ListItemClickListener{
     lateinit var presenter: RecipeListFragmentPresenter
 
     @ProvidePresenter
-    fun initPresenter(): RecipeListFragmentPresenter {
-        val component: PresenterComponent = App.presenterComponent
-        return component.getRecipeListFragmentPresenter()
+    fun initPresenter(): RecipeListFragmentPresenter? {
+        return App.presenterComponent.getRecipeListFragmentPresenter()
     }
 
     var queryText: String? = null
     var sPref: SharedPreferences? = null
     var adapter: RecipeListAdapter? = null
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
         val rv = view.recycler_recipes
@@ -122,4 +115,3 @@ RecipeListAdapter.ListItemClickListener{
         return sPref?.getInt(SPREF_PAG_SIZE, DEFAULT_PAGINATION_SIZE)
     }
 }
-

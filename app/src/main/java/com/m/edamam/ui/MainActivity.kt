@@ -22,7 +22,6 @@ import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Replace
 
-
 class MainActivity : AppCompatActivity(),
         PaginationSizeFragmentDialog.PaginationSizeDialogListener,
         RecommendationFragment.BtnSearchClickListener {
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity(),
     }
     var sPref: SharedPreferences? = null
     private var navigatorHolder: NavigatorHolder? = null
-    private lateinit var navigator: Navigator
+    private var navigator: Navigator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity(),
         navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container_main)
 
         if (savedInstanceState == null) {
-            navigator.applyCommands(arrayOf<Command>(Replace(Screens.RecommendationScreen())))
+            navigator?.applyCommands(arrayOf<Command>(Replace(Screens.RecommendationScreen())))
 
         }
 
@@ -111,7 +110,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onBtnSearchClicked() {
-        navigator.applyCommands(arrayOf<Command>(Replace(Screens.RecipeListScreen())))
+        navigator?.applyCommands(arrayOf<Command>(Replace(Screens.RecipeListScreen())))
     }
 
     private fun openDialog() {
