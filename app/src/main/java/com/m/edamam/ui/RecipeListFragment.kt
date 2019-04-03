@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.m.edamam.App
 import com.m.edamam.R
 import com.m.edamam.RecipeListAdapter
 import com.m.edamam.constants.DEFAULT_PAGINATION_SIZE
@@ -20,21 +21,28 @@ import com.m.edamam.di.component.DaggerAdapterComponent
 import com.m.edamam.di.component.PresenterComponent
 import com.m.edamam.di.component.DaggerPresenterComponent
 import com.m.edamam.di.module.AppModule
+import com.m.edamam.di.module.NavigationModule
 import com.m.edamam.pojo.Hit
+import com.m.edamam.pojo.Recipe
 import com.m.edamam.presenters.RecipeListFragmentPresenter
 import com.m.edamam.views.RecipeListFragmentView
 import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
+import ru.terrakok.cicerone.Navigator
+import ru.terrakok.cicerone.android.pure.AppNavigator
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import javax.inject.Inject
 
-class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainActivity.OnQueryTextListener {
+class RecipeListFragment :
+        MvpAppCompatFragment(), RecipeListFragmentView, MainActivity.OnQueryTextListener,
+RecipeListAdapter.ListItemClickListener{
 
     @InjectPresenter
+    @Inject
     lateinit var presenter: RecipeListFragmentPresenter
 
     @ProvidePresenter
     fun initPresenter(): RecipeListFragmentPresenter {
-        val component: PresenterComponent = DaggerPresenterComponent.builder()
-                .appModule(activity?.let { AppModule(it) })
-                .build()
+        val component: PresenterComponent = App.navComponent
         return component.getRecipeListFragmentPresenter()
     }
 
@@ -48,7 +56,7 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
         val manager = LinearLayoutManager(activity)
         rv.layoutManager = manager
         adapter = DaggerAdapterComponent.create().getRecipeListAdapter()
-        adapter?.listItemClickListener = activity as MainActivity
+        adapter?.listItemClickListener = this
         rv.adapter = adapter
 
         rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -74,6 +82,7 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
                 }
             }
         })
+
         return view
     }
 
@@ -100,6 +109,10 @@ class RecipeListFragment : MvpAppCompatFragment(), RecipeListFragmentView, MainA
 
     override fun showError(error: String) {
         Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onClick(recipe: Recipe) {
+        presenter.moveToRecipeDetailsScreen(recipe)
     }
 
     fun getPaginationSizeFromPreferences(): Int? {

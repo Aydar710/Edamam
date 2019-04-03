@@ -1,5 +1,6 @@
 package com.m.edamam.ui
 
+import android.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.SearchView
@@ -14,15 +15,31 @@ import android.content.SharedPreferences
 import android.content.Context
 import android.util.Log
 import com.amitshekhar.DebugDB
+import com.m.edamam.App
 import com.m.edamam.constants.SPREF_PAG_SIZE
 import com.m.edamam.constants.TEST_RECIPE_ID
+import com.m.edamam.di.component.DaggerNavigationComponent
+import com.m.edamam.di.component.DaggerPresenterComponent
+import com.m.edamam.di.component.PresenterComponent
+import com.m.edamam.di.module.AppModule
+import ru.terrakok.cicerone.Navigator
+import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.android.pure.AppNavigator
+import ru.terrakok.cicerone.android.pure.AppScreen
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import ru.terrakok.cicerone.android.support.SupportAppScreen
+import ru.terrakok.cicerone.commands.Command
+import ru.terrakok.cicerone.commands.Replace
 
-class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListener,
+
+class MainActivity : AppCompatActivity(),
         PaginationSizeFragmentDialog.PaginationSizeDialogListener,
         RecommendationFragment.BtnSearchClickListener {
 
     var listener: OnQueryTextListener? = null
     var sPref: SharedPreferences? = null
+    private var navigatorHolder: NavigatorHolder? = null
+    private lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +49,36 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         Stetho.initializeWithDefaults(this)
         Log.i("db", DebugDB.getAddressLog())
 
-        //doRecipeListTransaction()
-        doRecommendationFragmentTransaction()
+        navigatorHolder = App.navComponent.getNavigatorHolder()
+
+//        navigator = object : SupportAppNavigator(this, R.id.container_main) {
+//
+//            override fun applyCommands(commands: Array<Command>) {
+//                super.applyCommands(commands)
+//                supportFragmentManager.executePendingTransactions()
+//            }
+//
+//            override fun createFragment(screen: SupportAppScreen?): android.support.v4.app.Fragment {
+//                return super.createFragment(screen)
+//
+//
+//            }
+//        }
+
+        navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container_main)
+
+        if (savedInstanceState == null) {
+            navigator.applyCommands(arrayOf<Command>(Replace(Screens.RecommendationScreen())))
+
+        }
+
+
+        //doRecommendationFragmentTransaction()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        navigatorHolder?.setNavigator(navigator)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -68,10 +113,15 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onClick(recipe: Recipe) {
-        val recipeId = getRecipeId(recipe)
-        doRecipeDetailsFragmentTransaction(recipeId)
+    override fun onPause() {
+        navigatorHolder?.removeNavigator()
+        super.onPause()
     }
+
+    /*override fun onClick(recipe: Recipe) {
+        val recipeId = getRecipeId(recipe)
+        //doRecipeDetailsFragmentTransaction(recipeId)
+    }*/
 
     override fun setPaginationSize(size: Int) {
         /*sPref = getPreferences(Context.MODE_PRIVATE)
