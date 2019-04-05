@@ -27,16 +27,16 @@ import javax.inject.Inject
 
 class RecipeListFragment :
         MvpAppCompatFragment(), RecipeListFragmentView, MainActivity.OnQueryTextListener,
-RecipeListAdapter.ListItemClickListener{
+        RecipeListAdapter.ListItemClickListener {
 
     @InjectPresenter
     @Inject
     lateinit var presenter: RecipeListFragmentPresenter
 
     @ProvidePresenter
-    fun initPresenter(): RecipeListFragmentPresenter? {
-        return App.presenterComponent.getRecipeListFragmentPresenter()
-    }
+    fun initPresenter(): RecipeListFragmentPresenter? =
+            App.presenterComponent.getRecipeListFragmentPresenter()
+
 
     var queryText: String? = null
     var sPref: SharedPreferences? = null

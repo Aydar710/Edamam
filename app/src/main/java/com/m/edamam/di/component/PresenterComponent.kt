@@ -1,6 +1,5 @@
 package com.m.edamam.di.component
 
-import com.m.edamam.di.module.NavigationModule
 import com.m.edamam.di.module.PresenterModule
 import com.m.edamam.presenters.DetailsFragmentPresenter
 import com.m.edamam.presenters.RecipeListFragmentPresenter
