@@ -13,7 +13,7 @@ class App : Application() {
         @SuppressLint("StaticFieldLeak")
         var context: Context? = null
 
-        @SuppressWarnings("ignore lateinit usage")
+        @Suppress("LateinitUsage")
         lateinit var presenterComponent: PresenterComponent
     }
 
