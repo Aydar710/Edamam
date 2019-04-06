@@ -14,4 +14,8 @@
         android:title="Pagination Size"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/to_activity"
+        android:title="To Activity"
+        app:showAsAction="ifRoom" />
 </menu>

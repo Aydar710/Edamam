@@ -8,4 +8,12 @@
     <string name="recommend">We Recommend</string>
     <string name="searh">Searh</string>
     <string name="pagination_size">pagination size</string>
+    <string name="title_activity_container">ContainerActivity</string>
+    <string name="back">Back to first screen!</string>
+    <string name="next">Next</string>
+    <string name="second">second</string>
+    <string name="third">third</string>
+    <string name="first">first</string>
+    <string name="you_came_here_from_1_screen">You came here from 1 screen!</string>
+    <string name="back_to_application">Back to Application!</string>
 </resources>

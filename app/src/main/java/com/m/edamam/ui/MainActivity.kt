@@ -1,6 +1,7 @@
 package com.m.edamam.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
@@ -11,6 +12,7 @@ import com.m.edamam.R
 import com.m.edamam.RecipeListAdapter
 import com.m.edamam.constants.SPREF_PAG_SIZE
 import com.m.edamam.constants.TEST_RECIPE_ID
+import com.m.edamam.navcomp.ContainerActivity
 import com.m.edamam.pojo.Recipe
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -60,8 +62,14 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_pagination_size -> openDialog()
+            R.id.to_activity -> openOtherActivity()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun openOtherActivity() {
+        val myIntent = Intent(this@MainActivity, ContainerActivity::class.java)
+        this@MainActivity.startActivity(myIntent)
     }
 
     override fun onClick(recipe: Recipe) {
