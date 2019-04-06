@@ -23,6 +23,7 @@ import com.m.edamam.pojo.Recipe
 import com.m.edamam.presenters.RecipeListFragmentPresenter
 import com.m.edamam.views.RecipeListFragmentView
 import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
+import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class RecipeListFragment :
@@ -34,7 +35,7 @@ class RecipeListFragment :
     lateinit var presenter: RecipeListFragmentPresenter
 
     @ProvidePresenter
-    fun initPresenter(): RecipeListFragmentPresenter? =
+    fun initPresenter(): RecipeListFragmentPresenter =
             App.presenterComponent.getRecipeListFragmentPresenter()
 
 
