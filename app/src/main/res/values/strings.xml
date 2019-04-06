@@ -16,4 +16,7 @@
     <string name="first">first</string>
     <string name="you_came_here_from_1_screen">You came here from 1 screen!</string>
     <string name="back_to_application">Back to Application!</string>
+    <string name="you_came_here_from_2_screen">You came here from 2 screen!</string>
+    <string name="back_to_2_screen">Back to 2 screen</string>
+    <string name="next_to_3_screen">Next to 3 screen</string>
 </resources>

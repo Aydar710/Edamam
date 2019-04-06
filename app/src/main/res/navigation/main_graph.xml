@@ -23,8 +23,19 @@
         android:name="com.m.edamam.navcomp.First2Fragment"
         android:label="You came here from screen 1!">
         <action
+            android:id="@+id/action_first2_to_first3"
+            app:destination="@id/first3Fragment" />
+        <action
             android:id="@+id/action_first2_to_first"
             app:destination="@id/firstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/first3Fragment"
+        android:name="com.m.edamam.navcomp.First3Fragment"
+        android:label="You came here from screen 1!">
+        <action
+            android:id="@+id/action_first3_to_first2"
+            app:destination="@id/first2Fragment" />
     </fragment>
     <fragment
         android:id="@+id/secondFragment"

@@ -12,8 +12,6 @@ import kotlinx.android.synthetic.main.fragment_first.*
 
 class FirstFragment : Fragment() {
 
-    private var navController: NavController? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -23,7 +21,7 @@ class FirstFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        navController = view?.let { Navigation.findNavController(it) }
+        val navController = view?.let { Navigation.findNavController(it) }
         btn_next.setOnClickListener {
             navController?.navigate(R.id.action_first_to_first2)
         }
