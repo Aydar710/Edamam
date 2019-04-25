@@ -6,7 +6,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class AppModule(val context: Context) {
+open class AppModule(val context: Context) {
 
     @Provides
     @Singleton

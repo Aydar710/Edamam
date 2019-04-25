@@ -1,5 +1,6 @@
 package com.m.edamam.di.component
 
+import com.m.edamam.di.module.NetModule
 import com.m.edamam.di.module.PresenterModule
 import com.m.edamam.presenters.DetailsFragmentPresenter
 import com.m.edamam.presenters.RecipeListFragmentPresenter
@@ -8,7 +9,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [PresenterModule::class])
+@Component(modules = [PresenterModule::class, NetModule::class])
 interface PresenterComponent {
     fun getRecipeListFragmentPresenter(): RecipeListFragmentPresenter
     fun getDetailsFragmentPresenter(): DetailsFragmentPresenter

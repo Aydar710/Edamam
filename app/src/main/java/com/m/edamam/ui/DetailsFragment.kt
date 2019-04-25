@@ -18,7 +18,6 @@ import com.m.edamam.pojo.Recipe
 import com.m.edamam.presenters.DetailsFragmentPresenter
 import com.m.edamam.views.DetailsFragmentView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_details.view.*
 
 class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
 

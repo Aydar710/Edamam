@@ -1,27 +1,21 @@
 package com.m.edamam
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.ui.MainActivity
 import org.hamcrest.Matchers.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
 
 @RunWith(AndroidJUnit4::class)
 class RecipeListFragmentTest {
-
-    @Mock
-    private lateinit var mockRepository: RecipeRepository
 
     @Rule
     @JvmField
@@ -33,20 +27,30 @@ class RecipeListFragmentTest {
     }
 
     @Test
-    fun testRecipeListFragment() {
+    fun whenRecipeListFragmentStarted() {
 
 
         onView(withId(R.id.recycler_recipes)).check(matches(not(isDisplayed())))
 
         onView(withId(R.id.action_search))
                 .check(matches(isDisplayed()))
-
-        onView(withId(R.id.action_search))
                 .perform(click())
+                .perform(typeText("chicken"), closeSoftKeyboard())
+    }
 
-        onView(withId(R.id.action_search))
-                .perform(typeText("ch"))
+    @Test
+    fun testRecyclerView() {
+        onView(withId(R.id.recycler_recipes)).check(matches(isDisplayed()))
 
+        // :(
+        onView(withId(R.id.recycler_recipes))
+                //.perform(scrollToPosition(4))
+    }
 
+    @Test
+    fun testRecyclerViewClicks() {
+        // :-<
+        onView(withId(R.id.recycler_recipes))
+                //.perform(actionOnItemAtPosition(3, click()))
     }
 }
