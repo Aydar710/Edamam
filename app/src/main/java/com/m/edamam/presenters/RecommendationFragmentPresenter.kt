@@ -37,7 +37,7 @@ open class RecommendationFragmentPresenter(
                 withContext(Dispatchers.Main) {
                     recipe?.let { viewState.showRecommendedRecipe(it) }
                 }
-            } catch (e: Exception) {
+            } catch (e: IllegalStateException) {
                 e.printStackTrace()
             }
         }

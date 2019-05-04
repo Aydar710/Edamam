@@ -36,7 +36,7 @@ open class DetailsFragmentPresenter(private val repository: RecipeRepository)
                 withContext(Dispatchers.Main) {
                     recipe?.let { viewState.showRecipeDetails(it) }
                 }
-            } catch (e: Exception) {
+            } catch (e: IllegalStateException) {
                 e.printStackTrace()
             }
         }

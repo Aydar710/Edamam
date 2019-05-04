@@ -22,7 +22,7 @@ open class RecipeListFragmentPresenter(private val repository: RecipeRepository)
                 withContext(Dispatchers.Main) {
                     viewState.addElementsToAdapter(recipes)
                 }
-            } catch (e: Exception) {
+            } catch (e: IllegalStateException) {
                 viewState.showError("Произошла ошибка при загрузке данных")
                 e.printStackTrace()
             }
@@ -38,7 +38,7 @@ open class RecipeListFragmentPresenter(private val repository: RecipeRepository)
                 withContext(Dispatchers.Main) {
                     viewState.addElementsToAdapter(recipes)
                 }
-            }catch (e : Exception){
+            }catch (e : IllegalStateException){
                 e.printStackTrace()
             }
         }
