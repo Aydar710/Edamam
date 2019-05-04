@@ -1,13 +1,13 @@
 package com.m.edamam.di.module
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.m.edamam.constants.*
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -44,14 +44,14 @@ class NetModule {
 
     @Provides
     @Singleton
-    fun provideRxJava2CallAdapterFactory(): RxJava2CallAdapterFactory =
-            RxJava2CallAdapterFactory.create()
+    fun provideCoroutineCallAdapterFactory(): CoroutineCallAdapterFactory =
+            CoroutineCallAdapterFactory()
 
     @Provides
     @Singleton
     fun provideRetrofit(client: OkHttpClient,
                         converterFactory: GsonConverterFactory,
-                        callAdapterFactory: RxJava2CallAdapterFactory,
+                        callAdapterFactory: CoroutineCallAdapterFactory,
                         baseUrl: String): Retrofit =
             Retrofit.Builder()
                     .baseUrl(baseUrl)

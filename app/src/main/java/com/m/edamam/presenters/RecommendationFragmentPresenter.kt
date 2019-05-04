@@ -9,12 +9,15 @@ import com.m.edamam.constants.RECIPE_ID_3
 import com.m.edamam.constants.RECIPE_ID_4
 import com.m.edamam.repositories.RecipeRepository
 import com.m.edamam.views.RecommendationFragmentView
+import kotlinx.coroutines.*
 import java.util.*
 
 @InjectViewState
 open class RecommendationFragmentPresenter(
         private var repository: RecipeRepository
 ) : MvpPresenter<RecommendationFragmentView>() {
+
+    var getRecommendedRecipeJob: Job? = null
 
     var listOfRecipeIds: ArrayList<String> = ArrayList()
 
@@ -28,15 +31,16 @@ open class RecommendationFragmentPresenter(
 
     @SuppressLint("CheckResult")
     fun getRecommendedRecipe() {
-        repository.getRecipeById(getRandomRecipeIdFromList())
-                .subscribe({
-                    it?.let {
-                        viewState.showRecommendedRecipe(it)
-                    }
-                },
-                        {
-                            it.printStackTrace()
-                        })
+        getRecommendedRecipeJob = CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val recipe = repository.getRecipeById(getRandomRecipeIdFromList())
+                withContext(Dispatchers.Main) {
+                    recipe?.let { viewState.showRecommendedRecipe(it) }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     /*fun getRecommendedRecipeFromDB() {
@@ -47,5 +51,10 @@ open class RecommendationFragmentPresenter(
         val random: Random = Random()
         val randomInt = random.nextInt(listOfRecipeIds.size)
         return listOfRecipeIds[randomInt]
+    }
+
+    override fun onDestroy() {
+        getRecommendedRecipeJob?.cancel()
+        super.onDestroy()
     }
 }
