@@ -22,12 +22,7 @@ build/**
 # User-specific configurations
 /.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
+*.ipr
+*.iws
+classes/**
+target/**
