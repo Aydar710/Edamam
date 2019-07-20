@@ -7,6 +7,7 @@ import com.m.edamam.database.IngredientsConverter
 
 @Entity(tableName = "recipes")
 data class Recipe(
+
         @PrimaryKey(autoGenerate = true)
         var id: Int = 0,
         @SerializedName("uri")

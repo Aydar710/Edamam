@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class Hit(
+
         var id: Int? = null,
         @SerializedName("recipe")
         @Expose
