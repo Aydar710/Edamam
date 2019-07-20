@@ -1,78 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+    android:scrollbars="none"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.DetailsFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txt_label_rec"
-        android:layout_width="0dp"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="120dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/txt_ingredients"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_recipe_details_rec"
-        tools:text="Recipe Label" />
+        tools:context=".ui.DetailsFragment">
 
-    <TextView
-        android:id="@+id/txt_ingredients_rec"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_label_rec"
-        tools:text="Ingredients" />
+        <TextView
+            android:id="@+id/txt_recommend"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/recommend"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_search_recipes"
+            app:layout_constraintEnd_toStartOf="@id/btn_search_recipes"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_search_recipes" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_recipe_details_rec"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="70dp"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/txt_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic[16]" />
+        <Button
+            android:id="@+id/btn_search_recipes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/white"
+            android:paddingStart="8dp"
+            android:paddingEnd="16dp"
+            android:text="@string/searh"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.973"
+            app:layout_constraintStart_toEndOf="@id/txt_recommend"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txt_recommend"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/recommend"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txt_label_rec"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="120dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_recipe_details_rec"
+            tools:text="Recipe Label" />
 
-    <Button
-        android:id="@+id/btn_search_recipes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/searh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.973"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txt_ingredients_rec"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_label_rec"
+            tools:text="Ingredients" />
 
-</android.support.constraint.ConstraintLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_recipe_details_rec"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="70dp"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/txt_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_recommend"
+            tools:src="@tools:sample/backgrounds/scenic[16]" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
