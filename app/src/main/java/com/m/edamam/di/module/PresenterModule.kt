@@ -6,20 +6,22 @@ import com.m.edamam.presenters.RecommendationFragmentPresenter
 import com.m.edamam.repositories.RecipeRepository
 import dagger.Module
 import dagger.Provides
+import ru.terrakok.cicerone.Router
 
-@Module(includes = [RepositoryModule::class])
+@Module(includes = [RepositoryModule::class, NavigationModule::class])
 class PresenterModule {
 
     @Provides
-    fun provideRecipeListPresenter(repository: RecipeRepository): RecipeListFragmentPresenter =
-            RecipeListFragmentPresenter(repository)
+    fun provideRecipeListPresenter(repository: RecipeRepository, router: Router)
+            : RecipeListFragmentPresenter =
+            RecipeListFragmentPresenter(repository, router)
 
     @Provides
-    fun provideDetailsFragmentPresenter(repository: RecipeRepository) : DetailsFragmentPresenter =
+    fun provideDetailsFragmentPresenter(repository: RecipeRepository): DetailsFragmentPresenter =
             DetailsFragmentPresenter(repository)
 
     @Provides
-    fun provideRecommendationFragmentPresenter(repository: RecipeRepository) :
+    fun provideRecommendationFragmentPresenter(repository: RecipeRepository):
             RecommendationFragmentPresenter =
             RecommendationFragmentPresenter(repository)
 }

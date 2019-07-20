@@ -7,22 +7,32 @@ import android.view.Menu
 import android.view.MenuItem
 import com.facebook.stetho.Stetho
 import com.m.edamam.R
-import com.m.edamam.RecipeListAdapter
 import com.m.edamam.pojo.Recipe
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.SharedPreferences
 import android.content.Context
 import android.util.Log
 import com.amitshekhar.DebugDB
+import com.m.edamam.App
 import com.m.edamam.constants.SPREF_PAG_SIZE
 import com.m.edamam.constants.TEST_RECIPE_ID
+import ru.terrakok.cicerone.Navigator
+import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import ru.terrakok.cicerone.commands.Command
+import ru.terrakok.cicerone.commands.Replace
 
-class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListener,
+class MainActivity : AppCompatActivity(),
         PaginationSizeFragmentDialog.PaginationSizeDialogListener,
         RecommendationFragment.BtnSearchClickListener {
 
-    var listener: OnQueryTextListener? = null
+    companion object {
+
+        var listener: OnQueryTextListener? = null
+    }
     var sPref: SharedPreferences? = null
+    private var navigatorHolder: NavigatorHolder? = null
+    private var navigator: Navigator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +42,22 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         Stetho.initializeWithDefaults(this)
         Log.i("db", DebugDB.getAddressLog())
 
-        //doRecipeListTransaction()
-        doRecommendationFragmentTransaction()
+        navigatorHolder = App.presenterComponent.getNavigatorHolder()
+
+        navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container_main)
+
+        if (savedInstanceState == null) {
+            navigator?.applyCommands(arrayOf<Command>(Replace(Screens.RecommendationScreen())))
+
+        }
+
+
+        //doRecommendationFragmentTransaction()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        navigatorHolder?.setNavigator(navigator)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -68,9 +92,9 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onClick(recipe: Recipe) {
-        val recipeId = getRecipeId(recipe)
-        doRecipeDetailsFragmentTransaction(recipeId)
+    override fun onPause() {
+        navigatorHolder?.removeNavigator()
+        super.onPause()
     }
 
     override fun setPaginationSize(size: Int) {
@@ -86,37 +110,12 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.ListItemClickListene
     }
 
     override fun onBtnSearchClicked() {
-        doRecipeListTransaction()
+        navigator?.applyCommands(arrayOf<Command>(Replace(Screens.RecipeListScreen())))
     }
 
     private fun openDialog() {
         var dialog: PaginationSizeFragmentDialog = PaginationSizeFragmentDialog()
         dialog.show(supportFragmentManager, "dialog")
-    }
-
-    private fun doRecipeListTransaction() {
-        val fragmentManager = supportFragmentManager
-        val fragment = RecipeListFragment()
-        listener = fragment
-        fragmentManager.beginTransaction()
-                .replace(R.id.container_main, fragment)
-                .commit()
-    }
-
-    private fun doRecipeDetailsFragmentTransaction(recipeId: String) {
-        val fragmentManager = supportFragmentManager
-        val fragment = DetailsFragment.newInstance(recipeId)
-        fragmentManager.beginTransaction()
-                .replace(R.id.container_main, fragment)
-                .commit()
-    }
-
-    private fun doRecommendationFragmentTransaction() {
-        val fragmentManager = supportFragmentManager
-        val fragment = RecommendationFragment.newInstance()
-        fragmentManager.beginTransaction()
-                .replace(R.id.container_main, fragment)
-                .commit()
     }
 
     fun getRecipeId(recipe: Recipe): String =

@@ -3,12 +3,17 @@ package com.m.edamam.presenters
 import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.m.edamam.constants.TEST_RECIPE_ID
+import com.m.edamam.pojo.Recipe
 import com.m.edamam.repositories.RecipeRepository
+import com.m.edamam.ui.Screens
 import com.m.edamam.views.RecipeListFragmentView
+import ru.terrakok.cicerone.Router
 
 @InjectViewState
-open class RecipeListFragmentPresenter(private val repository: RecipeRepository)
-    : MvpPresenter<RecipeListFragmentView>() {
+open class RecipeListFragmentPresenter(
+        private val repository: RecipeRepository, private val router: Router
+) : MvpPresenter<RecipeListFragmentView>() {
 
     @SuppressLint("CheckResult")
     fun updateAdapter(query: String) {
@@ -17,7 +22,7 @@ open class RecipeListFragmentPresenter(private val repository: RecipeRepository)
                 .subscribe(
                         {
                             it?.let { list ->
-//                                val mList: MutableList<Hit> = ArrayList()
+                                //                                val mList: MutableList<Hit> = ArrayList()
 //                                mList.addAll(list)
                                 viewState.submitListIntoAdapter(list)
                             }
@@ -40,4 +45,11 @@ open class RecipeListFragmentPresenter(private val repository: RecipeRepository)
                             it.printStackTrace()
                         })
     }
+
+    fun moveToRecipeDetailsScreen(recipe: Recipe) {
+        router.replaceScreen(Screens.DetailsScreen(getRecipeId(recipe)))
+    }
+
+    fun getRecipeId(recipe: Recipe): String =
+            TEST_RECIPE_ID
 }
