@@ -3,7 +3,7 @@ package com.m.edamam.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -46,7 +46,7 @@ class RecipeListFragment :
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
         val rv = view.recycler_recipes
-        val manager = LinearLayoutManager(activity)
+        val manager = GridLayoutManager(activity, 2)
         rv.layoutManager = manager
         adapter = DaggerAdapterComponent.create().getRecipeListAdapter()
         adapter?.listItemClickListener = this

@@ -1,5 +1,6 @@
 package com.m.edamam
 
+import android.annotation.SuppressLint
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -50,10 +51,10 @@ open class RecipeListAdapter : ListAdapter<Hit, RecipeListAdapter.RecipeHolder>(
     inner class RecipeHolder(override val containerView: View) :
             RecyclerView.ViewHolder(containerView), LayoutContainer {
 
+        @SuppressLint("SetTextI18n")
         fun bind(recipe: Recipe) {
             txt_label.text = recipe.label
-            txt_calories.text = recipe.calories.toString()
-            txt_time.text = recipe.totalTime.toString()
+            txt_calories.text = recipe.calories?.toInt().toString() + " Kcal"
 
             containerView.setOnClickListener {
                 recipe.let { itRecipe ->
