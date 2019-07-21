@@ -2,9 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:scrollbars="none"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -14,36 +14,18 @@
 
         <TextView
             android:id="@+id/txt_recommend"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/recommend"
             android:textSize="20sp"
             android:textStyle="italic"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_search_recipes"
-            app:layout_constraintEnd_toStartOf="@id/btn_search_recipes"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_search_recipes" />
-
-        <Button
-            android:id="@+id/btn_search_recipes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:background="@android:color/white"
-            android:paddingStart="8dp"
-            android:paddingEnd="16dp"
-            android:text="@string/searh"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.973"
-            app:layout_constraintStart_toEndOf="@id/txt_recommend"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteY="31dp" />
 
         <TextView
             android:id="@+id/txt_label_rec"
@@ -77,10 +59,10 @@
             android:id="@+id/img_recipe_details_rec"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="70dp"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
-            android:layout_marginTop="24dp"
             app:layout_constraintBottom_toTopOf="@+id/txt_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"

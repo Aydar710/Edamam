@@ -10,7 +10,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 
 import com.m.edamam.R
-import com.m.edamam.constants.ARG_RECIPE_ID
+import com.m.edamam.constants.ARG_RECIPE
 import com.m.edamam.di.component.DaggerPresenterComponent
 import com.m.edamam.di.component.PresenterComponent
 import com.m.edamam.di.module.AppModule
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_details.view.*
 
 class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
 
-    private  var id: String? = null
+    private var recipe : Recipe? = null
 
     @InjectPresenter
     lateinit var presenter: DetailsFragmentPresenter
@@ -37,10 +37,10 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
 
     companion object {
         @JvmStatic
-        fun newInstance(id: String) =
+        fun newInstance(recipe: Recipe) =
                 DetailsFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ARG_RECIPE_ID, id)
+                        putSerializable(ARG_RECIPE, recipe)
                     }
                 }
     }
@@ -49,17 +49,18 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
         arguments?.let {
-            id = it.getString(ARG_RECIPE_ID)
+            recipe = it.getSerializable(ARG_RECIPE) as Recipe
+            print("asd")
         }
         return view
     }
 
-    override fun loadRecipeDetails() {
-        id?.let { presenter.getRecipeDetails(it) }
+    override fun showRecipeDetails() {
+        recipe?.let { setRecipe(it) }
     }
 
-    override fun showRecipeDetails(recipe: Recipe) {
-        setRecipe(recipe)
+    override fun handleError(error: Throwable) {
+        Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setRecipe(recipe: Recipe) {
@@ -68,9 +69,5 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsFragmentView {
         Picasso.get()
                 .load(recipe.image)
                 .into(view?.img_recipe_details)
-    }
-
-    override fun handleError(error: Throwable) {
-        Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
     }
 }

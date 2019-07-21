@@ -46,9 +46,6 @@ class RecommendationFragment : MvpAppCompatFragment(), RecommendationFragmentVie
         val view = inflater.inflate(R.layout.fragment_recommendation, container, false)
         btnSearchClickListener = activity as MainActivity
 
-        view.btn_search_recipes.setOnClickListener {
-            btnSearchClickListener?.onBtnSearchClicked()
-        }
         return view
     }
 

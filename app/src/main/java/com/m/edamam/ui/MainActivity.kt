@@ -1,24 +1,25 @@
 package com.m.edamam.ui
 
-import android.support.v7.app.AppCompatActivity
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.facebook.stetho.Stetho
-import com.m.edamam.R
-import com.m.edamam.pojo.Recipe
-import kotlinx.android.synthetic.main.activity_main.*
-import android.content.SharedPreferences
-import android.content.Context
-import android.util.Log
 import com.amitshekhar.DebugDB
+import com.facebook.stetho.Stetho
 import com.m.edamam.App
+import com.m.edamam.R
 import com.m.edamam.constants.SPREF_PAG_SIZE
 import com.m.edamam.constants.TEST_RECIPE_ID
+import com.m.edamam.pojo.Recipe
+import kotlinx.android.synthetic.main.activity_main.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import ru.terrakok.cicerone.commands.Back
 import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Replace
 
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity(),
 
         var listener: OnQueryTextListener? = null
     }
+
     var sPref: SharedPreferences? = null
     private var navigatorHolder: NavigatorHolder? = null
     private var navigator: Navigator? = null
@@ -50,9 +52,6 @@ class MainActivity : AppCompatActivity(),
             navigator?.applyCommands(arrayOf<Command>(Replace(Screens.RecommendationScreen())))
 
         }
-
-
-        //doRecommendationFragmentTransaction()
     }
 
     override fun onResume() {
@@ -88,6 +87,7 @@ class MainActivity : AppCompatActivity(),
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_pagination_size -> openDialog()
+            R.id.action_search -> navigator?.applyCommands(arrayOf<Command>(Replace(Screens.RecipeListScreen())))
         }
         return super.onOptionsItemSelected(item)
     }
@@ -98,10 +98,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun setPaginationSize(size: Int) {
-        /*sPref = getPreferences(Context.MODE_PRIVATE)
-        val ed = sPref?.edit()
-        ed?.putInt(SPREF_PAG_SIZE, size)
-        ed?.apply()*/
         getPreferences(Context.MODE_PRIVATE)?.apply {
             edit()
                     .putInt(SPREF_PAG_SIZE, size)
@@ -113,8 +109,13 @@ class MainActivity : AppCompatActivity(),
         navigator?.applyCommands(arrayOf<Command>(Replace(Screens.RecipeListScreen())))
     }
 
+    override fun onBackPressed() {
+        navigator?.applyCommands(arrayOf<Command>(Back()))
+        super.onBackPressed()
+    }
+
     private fun openDialog() {
-        var dialog: PaginationSizeFragmentDialog = PaginationSizeFragmentDialog()
+        val dialog: PaginationSizeFragmentDialog = PaginationSizeFragmentDialog()
         dialog.show(supportFragmentManager, "dialog")
     }
 

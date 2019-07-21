@@ -22,8 +22,6 @@ open class RecipeListFragmentPresenter(
                 .subscribe(
                         {
                             it?.let { list ->
-                                //                                val mList: MutableList<Hit> = ArrayList()
-//                                mList.addAll(list)
                                 viewState.submitListIntoAdapter(list)
                             }
                         },
@@ -47,7 +45,7 @@ open class RecipeListFragmentPresenter(
     }
 
     fun moveToRecipeDetailsScreen(recipe: Recipe) {
-        router.replaceScreen(Screens.DetailsScreen(getRecipeId(recipe)))
+        router.replaceScreen(Screens.DetailsScreen(recipe))
     }
 
     fun getRecipeId(recipe: Recipe): String =

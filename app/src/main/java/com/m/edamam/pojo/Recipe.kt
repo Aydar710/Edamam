@@ -1,9 +1,13 @@
 package com.m.edamam.pojo
 
-import android.arch.persistence.room.*
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
+import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.TypeConverters
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.m.edamam.database.IngredientsConverter
+import java.io.Serializable
 
 @Entity(tableName = "recipes")
 data class Recipe(
@@ -63,4 +67,4 @@ data class Recipe(
         @SerializedName("totalTime")
         @Expose
         var totalTime: Double? = null
-)
+) : Serializable
