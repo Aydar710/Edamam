@@ -2,7 +2,7 @@ package com.m.edamam
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.m.edamam.constants.*
-import com.m.edamam.repositories.EdamamApi
+import com.m.edamam.data.repositories.EdamamApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

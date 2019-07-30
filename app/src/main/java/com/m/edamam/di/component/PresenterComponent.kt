@@ -1,9 +1,9 @@
 package com.m.edamam.di.component
 
 import com.m.edamam.di.module.PresenterModule
-import com.m.edamam.presenters.DetailsFragmentPresenter
-import com.m.edamam.presenters.RecipeListFragmentPresenter
-import com.m.edamam.presenters.RecommendationFragmentPresenter
+import com.m.edamam.presentation.recipedetails.DetailsFragmentPresenter
+import com.m.edamam.presentation.recipelist.RecipeListFragmentPresenter
+import com.m.edamam.presentation.recommendation.RecommendationFragmentPresenter
 import dagger.Component
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router

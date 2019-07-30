@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.m.edamam.pojo.Hit
-import com.m.edamam.pojo.Recipe
+import com.m.edamam.data.pojo.Hit
+import com.m.edamam.data.pojo.Recipe
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.card_recipe.*

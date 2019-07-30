@@ -1,7 +1,7 @@
 package com.m.edamam
 
 import android.support.v7.util.DiffUtil
-import com.m.edamam.pojo.Hit
+import com.m.edamam.data.pojo.Hit
 
 class HitDiffCallback : DiffUtil.ItemCallback<Hit>() {
     override fun areItemsTheSame(hitOld: Hit, hitNew: Hit): Boolean =

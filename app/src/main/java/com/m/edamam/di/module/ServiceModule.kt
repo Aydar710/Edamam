@@ -1,6 +1,6 @@
 package com.m.edamam.di.module
 
-import com.m.edamam.repositories.EdamamApi
+import com.m.edamam.data.repositories.EdamamApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

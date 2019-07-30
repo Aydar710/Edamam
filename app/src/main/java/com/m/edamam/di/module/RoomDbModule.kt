@@ -3,7 +3,7 @@ package com.m.edamam.di.module
 import android.arch.persistence.room.Room
 import android.content.Context
 import com.m.edamam.constants.DATABSE_NAME
-import com.m.edamam.database.RecipeDb
+import com.m.edamam.data.database.RecipeDb
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
